@@ -1,10 +1,27 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #1a6fa8;
+  --color-primary-light: #e8f4fd;
+  --color-accent: #00b4d8;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-neutral-900: #0f172a;
+  --color-neutral-600: #475569;
+  --color-neutral-100: #f8fafc;
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-accent: 'Playfair Display', serif;
+
+  --breakpoint-2xl: 1400px;
+}
+
 @layer base {
   :root {
-    --primary: #1a6fa8; /* Deep medical blue */
-    --primary-light: #e8f4fd; /* Soft blue tint */
-    --accent: #00b4d8; /* Cyan-teal */
+    --primary: #1a6fa8;
+    --primary-light: #e8f4fd;
+    --accent: #00b4d8;
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
@@ -43,49 +60,53 @@
     --input: #1e293b;
     --ring: #1d4ed8;
   }
-}
 
-@layer base {
   * {
     border-color: var(--border);
   }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
-    @apply tracking-tight;
+    letter-spacing: -0.025em; /* tracking-tight */
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
-    color: var(--neutral-900);
+    font-weight: 700; /* font-bold */
+    color: var(--color-neutral-900);
   }
 }
 
 /* DayPicker custom styles */
 .rdp {
   --rdp-cell-size: 40px;
-  --rdp-accent-color: var(--accent);
-  --rdp-background-color: var(--primary-light);
-  --rdp-accent-color-dark: var(--primary);
+  --rdp-accent-color: var(--color-accent);
+  --rdp-background-color: var(--color-primary-light);
+  --rdp-accent-color-dark: var(--color-primary);
   --rdp-background-color-dark: #1e293b;
-  --rdp-outline: 2px solid var(--accent);
-  --rdp-outline-selected: 2px solid var(--accent);
+  --rdp-outline: 2px solid var(--color-accent);
+  --rdp-outline-selected: 2px solid var(--color-accent);
   margin-left: auto;
   margin-right: auto;
 }
-.rdp-day_selected, .rdp-day_selected:focus-visible, .rdp-day_selected:hover {
-  background-color: var(--accent);
+
+.rdp-day_selected, 
+.rdp-day_selected:focus-visible, 
+.rdp-day_selected:hover {
+  background-color: var(--color-accent);
   color: white;
 }
 
-@layer utilities {
-  .glass {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    @apply shadow-sm;
-  }
-  .dark .glass {
+@utility glass {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-sm);
+}
+
+.dark {
+  & .glass {
     background-color: rgba(15, 23, 42, 0.7);
     border: 1px solid rgba(30, 41, 59, 0.5);
   }
