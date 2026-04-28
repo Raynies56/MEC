@@ -17,7 +17,8 @@ const updateSchema = z.object({
   notify_patient: z.boolean().optional().default(false),
 });
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getSession();
   if (!session.isLoggedIn) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -34,7 +35,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     const { status, new_date, new_time, doctor_notes, notify_patient } = result.data;
     
     // 1. Obtener cita actual para el email
-    const currentApt = await getAppointmentById(params.id);
+    const currentApt = await getAppointmentById(id);
     if (!currentApt) {
       return NextResponse.json({ error: "Cita no encontrada" }, { status: 404 });
     }
@@ -46,7 +47,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     if (new_time) updatedData.time = new_time;
     if (doctor_notes !== undefined) updatedData.doctor_notes = doctor_notes;
 
-    const updatedApt = await updateAppointment(params.id, updatedData);
+    const updatedApt = await updateAppointment(id, updatedData);
 
     // 3. Notificar al paciente si se solicita
     if (notify_patient) {

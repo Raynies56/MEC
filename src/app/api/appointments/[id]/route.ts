@@ -3,7 +3,8 @@ import { getServiceSupabase } from '@/lib/supabase';
 import { getSession } from '@/lib/auth/session';
 
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getSession();
   
   if (!session.isLoggedIn) {
@@ -23,7 +24,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     const { data, error } = await supabase
       .from('appointments')
       .update(updateData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 
@@ -38,7 +39,8 @@ export async function PATCH(request: Request, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getSession();
   
   if (!session.isLoggedIn) {
@@ -50,7 +52,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     const { error } = await supabase
       .from('appointments')
       .update({ status: 'cancelled' })
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) throw error;
 

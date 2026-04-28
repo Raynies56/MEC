@@ -6,36 +6,55 @@ import { AboutCTA } from "@/components/sections/AboutCTA";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactMap } from "@/components/sections/ContactMap";
-import { Metadata } from "next";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Hero />
-      <Stats />
-      <Services />
-      <AboutCTA />
+      
+      <ScrollReveal>
+        <Stats />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <Services />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <AboutCTA />
+      </ScrollReveal>
       
       {/* Insurances banner */}
-      <section className="py-12 bg-white dark:bg-slate-950 border-y border-border overflow-hidden">
-        <div className="container mx-auto px-4">
-          <p className="text-center font-semibold text-neutral-500 uppercase tracking-widest text-sm mb-8">
-            Seguros Médicos Aceptados
-          </p>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-            {/* Simulated Insurance Logos (text for fallback) */}
-            {["Humano", "Universal", "Senasa", "Mapfre BHD", "Banreservas"].map(insurer => (
-              <div key={insurer} className="text-2xl font-bold font-accent text-neutral-400">
-                {insurer}
-              </div>
-            ))}
+      <ScrollReveal>
+        <section className="py-12 bg-white dark:bg-slate-950 border-y border-border overflow-hidden">
+          <div className="container mx-auto px-4">
+            <p className="text-center font-semibold text-neutral-500 uppercase tracking-widest text-sm mb-8">
+              Seguros Médicos Aceptados
+            </p>
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+              {/* Simulated Insurance Logos (text for fallback) */}
+              {["Humano", "Universal", "Senasa", "Mapfre BHD", "Banreservas"].map(insurer => (
+                <div key={insurer} className="text-2xl font-bold font-accent text-neutral-400">
+                  {insurer}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
-      <Testimonials />
-      <FAQ />
-      <ContactMap />
+      <ScrollReveal>
+        <Testimonials />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <FAQ />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <ContactMap />
+      </ScrollReveal>
     </div>
   );
 }

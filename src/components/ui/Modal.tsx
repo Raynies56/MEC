@@ -59,10 +59,13 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
             className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ duration: 0.2, type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ 
+              duration: isOpen ? 0.25 : 0.2, 
+              ease: isOpen ? "easeOut" : "easeIn" 
+            }}
             className={cn(
               "relative w-full rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900 z-10 overflow-y-auto max-h-[90vh]",
               sizes[size],

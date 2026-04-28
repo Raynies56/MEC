@@ -55,7 +55,7 @@ export default function Navbar() {
               <Eye className="h-6 w-6 text-primary" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-tight text-neutral-900 dark:text-white">Visión Plena</span>
+              <span className="font-bold text-lg leading-tight text-foreground">Visión Plena</span>
               <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold">
                 Dra. Valentina Reyes
               </span>
@@ -110,7 +110,7 @@ export default function Navbar() {
             )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="text-neutral-900 dark:text-white p-2"
+              className="text-foreground p-2"
             >
               <Menu className="h-6 w-6" />
             </button>
