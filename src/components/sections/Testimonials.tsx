@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
@@ -24,66 +24,119 @@ const TESTIMONIALS = [
     name: "Ana P.",
     service: "Oftalmología Pediátrica",
     text: "Trató a mi hijo de 6 años con muchísimo cariño y paciencia. Logró que estuviera tranquilo en la consulta. Es fantástica con los niños.",
-  }
+  },
 ];
 
 export function Testimonials() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  const prev = () => setCurrent(c => (c === 0 ? TESTIMONIALS.length - 1 : c - 1));
-  const next = () => setCurrent(c => (c === TESTIMONIALS.length - 1 ? 0 : c + 1));
+  const navigate = useCallback((newIndex: number) => {
+    setDirection(newIndex > current ? 1 : -1);
+    setCurrent(newIndex);
+  }, [current]);
+
+  const prev = () => navigate(current === 0 ? TESTIMONIALS.length - 1 : current - 1);
+  const next = () => navigate(current === TESTIMONIALS.length - 1 ? 0 : current + 1);
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
+  };
 
   return (
-    <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden">
+    <section
+      className="section-padding bg-[var(--background)] overflow-hidden"
+      aria-labelledby="testimonials-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Lo Que Dicen Nuestros Pacientes</h2>
+          <p className="text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
+            Testimonios
+          </p>
+          <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold mb-4">
+            Lo Que Dicen Nuestros Pacientes
+          </h2>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          {/* Controls */}
-          <button onClick={prev} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 p-3 rounded-full bg-white shadow-lg border border-border text-neutral-600 hover:text-primary transition-colors dark:bg-slate-800 dark:border-slate-700">
-            <ChevronLeft className="h-6 w-6" />
+          {/* ── Navigation arrows ── */}
+          <button
+            onClick={prev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-14 z-10 p-3 rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 transition-all duration-200"
+            aria-label="Testimonio anterior"
+          >
+            <ChevronLeft className="h-5 w-5" />
           </button>
-          <button onClick={next} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 p-3 rounded-full bg-white shadow-lg border border-border text-neutral-600 hover:text-primary transition-colors dark:bg-slate-800 dark:border-slate-700">
-            <ChevronRight className="h-6 w-6" />
+          <button
+            onClick={next}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-14 z-10 p-3 rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 transition-all duration-200"
+            aria-label="Siguiente testimonio"
+          >
+            <ChevronRight className="h-5 w-5" />
           </button>
 
-          <div className="relative bg-primary-light/50 dark:bg-slate-900 rounded-[2rem] p-8 md:p-16">
-            <Quote className="absolute top-8 left-8 h-12 w-12 text-primary/20 rotate-180" />
-            <AnimatePresence mode="wait">
+          {/* ── Testimonial card ── */}
+          <div
+            className="relative bg-[var(--primary-light)]/50 dark:bg-[var(--neutral-200)] rounded-[var(--radius-2xl)] p-8 md:p-16 min-h-[320px] flex items-center justify-center"
+            role="region"
+            aria-roledescription="carrusel"
+            aria-label="Testimonios de pacientes"
+          >
+            <Quote className="absolute top-6 left-6 md:top-8 md:left-8 h-10 w-10 text-[var(--primary)]/10 rotate-180" aria-hidden="true" />
+
+            <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={current}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="text-center relative z-10"
+                role="group"
+                aria-roledescription="diapositiva"
+                aria-label={`Testimonio ${current + 1} de ${TESTIMONIALS.length}`}
               >
-                <div className="flex justify-center gap-1 mb-6">
+                {/* Stars */}
+                <div className="flex justify-center gap-1 mb-6" aria-label="Calificación: 5 de 5 estrellas">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-accent text-accent" />
+                    <Star key={i} className="h-4.5 w-4.5 fill-[var(--accent)] text-[var(--accent)]" aria-hidden="true" />
                   ))}
                 </div>
-                <p className="text-xl md:text-2xl italic font-medium text-neutral-800 dark:text-neutral-200 mb-8 leading-relaxed">
-                  "{TESTIMONIALS[current].text}"
-                </p>
+
+                {/* Quote text */}
+                <blockquote className="text-lg md:text-xl font-medium text-[var(--neutral-800)] dark:text-[var(--neutral-200)] mb-8 leading-relaxed italic max-w-2xl mx-auto">
+                  &ldquo;{TESTIMONIALS[current].text}&rdquo;
+                </blockquote>
+
+                {/* Author */}
                 <div>
-                  <h4 className="font-bold text-lg">{TESTIMONIALS[current].name}</h4>
-                  <p className="text-primary text-sm font-medium">{TESTIMONIALS[current].service}</p>
+                  <p className="font-bold text-lg text-[var(--neutral-900)]">
+                    {TESTIMONIALS[current].name}
+                  </p>
+                  <p className="text-[var(--primary)] text-sm font-medium mt-0.5">
+                    {TESTIMONIALS[current].service}
+                  </p>
                 </div>
               </motion.div>
             </AnimatePresence>
-            
-            <div className="flex justify-center gap-2 mt-8">
+
+            {/* ── Dots ── */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
               {TESTIMONIALS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    current === i ? "bg-primary w-8" : "bg-primary/30"
+                  onClick={() => navigate(i)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    current === i
+                      ? "bg-[var(--primary)] w-8"
+                      : "bg-[var(--primary)]/20 w-2 hover:bg-[var(--primary)]/40"
                   }`}
-                  aria-label={`Ver testimonio ${i + 1}`}
+                  aria-label={`Ir al testimonio ${i + 1}`}
+                  aria-current={current === i ? "true" : undefined}
                 />
               ))}
             </div>
@@ -93,4 +146,3 @@ export function Testimonials() {
     </section>
   );
 }
-

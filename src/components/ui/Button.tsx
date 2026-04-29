@@ -10,22 +10,50 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", isLoading, children, disabled, ...props }, ref) => {
-    
-    const baseStyles = "inline-flex items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transform active:scale-95";
-    
+
+    const baseStyles = [
+      "inline-flex items-center justify-center font-medium",
+      "transition-all duration-200 ease-out",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+      "disabled:opacity-50 disabled:pointer-events-none",
+      "active:scale-[0.97]",
+      "select-none",
+    ].join(" ");
+
     const variants = {
-      primary: "bg-primary text-white hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20",
-      secondary: "bg-primary-light text-primary hover:bg-primary/10",
-      accent: "bg-accent text-white hover:bg-accent/90 hover:shadow-lg hover:shadow-accent/20",
-      ghost: "hover:bg-neutral-100 dark:hover:bg-neutral-900",
-      outline: "border border-border bg-transparent hover:bg-neutral-100 dark:hover:bg-slate-800",
-      danger: "bg-error text-white hover:bg-error/90",
+      primary: [
+        "bg-[var(--primary)] text-white",
+        "hover:bg-[var(--primary-hover)] hover:shadow-lg hover:shadow-[var(--primary)]/20",
+        "active:bg-[var(--primary-hover)]",
+      ].join(" "),
+      secondary: [
+        "bg-[var(--primary-light)] text-[var(--primary)]",
+        "hover:bg-[var(--primary)]/15",
+      ].join(" "),
+      accent: [
+        "bg-[var(--accent)] text-white",
+        "hover:bg-[var(--accent-hover)] hover:shadow-lg hover:shadow-[var(--accent)]/20",
+        "active:bg-[var(--accent-hover)]",
+      ].join(" "),
+      ghost: [
+        "text-[var(--neutral-600)]",
+        "hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)]",
+      ].join(" "),
+      outline: [
+        "border border-[var(--border)] bg-transparent text-[var(--neutral-700)]",
+        "hover:bg-[var(--neutral-100)] hover:border-[var(--neutral-300)]",
+        "dark:text-[var(--neutral-300)] dark:hover:bg-[var(--neutral-200)]",
+      ].join(" "),
+      danger: [
+        "bg-[var(--error)] text-white",
+        "hover:bg-[var(--error)]/90 hover:shadow-lg hover:shadow-[var(--error)]/20",
+      ].join(" "),
     };
 
     const sizes = {
-      sm: "h-9 px-3 text-sm rounded-md",
-      md: "h-11 px-6 text-base rounded-full",
-      lg: "h-14 px-8 text-lg rounded-full",
+      sm: "h-9 px-4 text-sm rounded-lg gap-1.5",
+      md: "h-11 px-6 text-sm rounded-full gap-2",
+      lg: "h-13 px-8 text-base rounded-full gap-2",
       icon: "h-10 w-10 rounded-full",
     };
 
@@ -36,11 +64,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading || disabled}
         {...props}
       >
-        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {isLoading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
         {children}
       </button>
     );
   }
 );
 Button.displayName = "Button";
-

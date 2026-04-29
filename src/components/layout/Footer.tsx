@@ -5,87 +5,153 @@ import Link from "next/link";
 import { Eye, MapPin, Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
 import { usePathname } from "next/navigation";
 
+const NAV_LINKS = [
+  { label: "Inicio", href: "/" },
+  { label: "Sobre Mí", href: "/sobre-mi" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Agendar Cita", href: "/citas" },
+  { label: "Blog", href: "/blog" },
+];
+
+const SERVICE_LINKS = [
+  { label: "Consulta General", href: "/servicios#consulta" },
+  { label: "Glaucoma", href: "/servicios#glaucoma" },
+  { label: "Cataratas", href: "/servicios#cataratas" },
+  { label: "Receta de Lentes", href: "/servicios#lentes" },
+];
+
 export default function Footer() {
   const pathname = usePathname();
   if (pathname?.startsWith("/dashboard") || pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300 pt-16 pb-8">
+    <footer
+      role="contentinfo"
+      className="bg-[var(--neutral-950)] dark:bg-[var(--neutral-100)] text-[var(--neutral-400)] pt-16 pb-8"
+    >
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <Eye className="h-8 w-8 text-primary-light" strokeWidth={2} />
-              <div className="flex flex-col text-white">
-                <span className="font-bold text-xl leading-tight">Visión Plena</span>
-                <span className="text-xs uppercase tracking-wider text-neutral-400 font-semibold">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14">
+
+          {/* ── Brand column ── */}
+          <div className="space-y-5 lg:col-span-1">
+            <Link href="/" className="flex items-center gap-2.5 group" aria-label="Visión Plena — Inicio">
+              <Eye className="h-7 w-7 text-[var(--primary-light)]" strokeWidth={2} />
+              <div className="flex flex-col">
+                <span className="font-bold text-lg leading-tight text-white dark:text-[var(--neutral-900)]">
+                  Visión Plena
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--neutral-500)] font-medium">
                   Dra. Valentina Reyes
                 </span>
               </div>
             </Link>
-            <p className="text-sm text-neutral-400 mt-4 max-w-sm">
+            <p className="text-sm text-[var(--neutral-500)] leading-relaxed max-w-xs">
               Tu salud visual en manos expertas. Especialista en oftalmología clínica y quirúrgica con más de 12 años de experiencia.
             </p>
-            <div className="flex gap-4 pt-2">
-              <a href="#" className="hover:text-white transition-colors"><Instagram className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-white transition-colors"><Facebook className="h-5 w-5" /></a>
-              <a href="#" className="hover:text-white transition-colors"><Twitter className="h-5 w-5" /></a>
+            <div className="flex gap-3 pt-1">
+              {[
+                { icon: Instagram, label: "Instagram", href: "#" },
+                { icon: Facebook, label: "Facebook", href: "#" },
+                { icon: Twitter, label: "Twitter", href: "#" },
+              ].map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--neutral-400)] hover:text-white transition-colors duration-200"
+                  aria-label={`Síguenos en ${label}`}
+                >
+                  <Icon className="h-4.5 w-4.5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Links */}
+          {/* ── Navigation column ── */}
           <div>
-            <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-sm">Navegación</h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/" className="hover:text-primary-light transition-colors">Inicio</Link></li>
-              <li><Link href="/sobre-mi" className="hover:text-primary-light transition-colors">Sobre Mí</Link></li>
-              <li><Link href="/servicios" className="hover:text-primary-light transition-colors">Servicios</Link></li>
-              <li><Link href="/citas" className="hover:text-primary-light transition-colors">Agendar Cita</Link></li>
-              <li><Link href="/blog" className="hover:text-primary-light transition-colors">Blog</Link></li>
+            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+              Navegación
+            </h4>
+            <ul className="space-y-3">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[var(--neutral-500)] hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Services */}
+          {/* ── Services column ── */}
           <div>
-            <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-sm">Servicios</h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link href="/servicios#consulta" className="hover:text-primary-light transition-colors">Consulta General</Link></li>
-              <li><Link href="/servicios#glaucoma" className="hover:text-primary-light transition-colors">Glaucoma</Link></li>
-              <li><Link href="/servicios#cataratas" className="hover:text-primary-light transition-colors">Cataratas</Link></li>
-              <li><Link href="/servicios#lentes" className="hover:text-primary-light transition-colors">Receta de Lentes</Link></li>
-              <li><Link href="/servicios#urgencias" className="hover:text-primary-light transition-colors">Urgencias 24/7</Link></li>
+            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+              Servicios
+            </h4>
+            <ul className="space-y-3">
+              {SERVICE_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[var(--neutral-500)] hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* ── Contact column ── */}
           <div>
-            <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-sm">Contacto</h4>
+            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+              Contacto
+            </h4>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
-                <MapPin className="h-5 w-5 text-primary shrink-0" />
-                <span>Av. Abraham Lincoln 452,<br />Torre Médica Naco, Suite 8B,<br />Santo Domingo, RD</span>
+                <MapPin className="h-4.5 w-4.5 text-[var(--primary)] mt-0.5 shrink-0" />
+                <span className="text-[var(--neutral-500)]">
+                  Av. Abraham Lincoln 452,<br />
+                  Torre Médica Naco, Suite 8B
+                </span>
               </li>
               <li className="flex gap-3 items-center">
-                <Phone className="h-5 w-5 text-primary shrink-0" />
-                <span>+1 (809) 555-0192</span>
+                <Phone className="h-4.5 w-4.5 text-[var(--primary)] shrink-0" />
+                <a href="tel:+18095550192" className="text-[var(--neutral-500)] hover:text-white transition-colors">
+                  +1 (809) 555-0192
+                </a>
               </li>
               <li className="flex gap-3 items-center">
-                <Mail className="h-5 w-5 text-primary shrink-0" />
-                <span>contacto@visionplena.com.do</span>
+                <Mail className="h-4.5 w-4.5 text-[var(--primary)] shrink-0" />
+                <a href="mailto:contacto@visionplena.com.do" className="text-[var(--neutral-500)] hover:text-white transition-colors">
+                  contacto@visionplena.com.do
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
+        {/* ── Bottom bar ── */}
+        <div className="border-t border-white/10 dark:border-[var(--border)] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--neutral-500)]">
           <p>© {new Date().getFullYear()} Centro Oftalmológico Visión Plena. Todos los derechos reservados.</p>
           <div className="flex flex-wrap justify-center gap-6">
-            <Link href="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link>
-            <Link href="/terminos" className="hover:text-white transition-colors">Términos de Servicio</Link>
-            <Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
-              <span className="text-[10px] grayscale brightness-200">🔒</span>
-              <span className="text-[11px] font-medium border-l border-neutral-700 pl-2">Acceso médico</span>
+            <Link href="/privacidad" className="hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors">
+              Privacidad
+            </Link>
+            <Link href="/terminos" className="hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors">
+              Términos
+            </Link>
+            <Link
+              href="/admin/login"
+              className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-1.5"
+              aria-label="Acceso para personal médico"
+            >
+              <span className="text-[10px]">🔒</span>
+              <span className="text-[11px] font-medium border-l border-white/10 pl-2">
+                Acceso médico
+              </span>
             </Link>
           </div>
         </div>
@@ -93,4 +159,3 @@ export default function Footer() {
     </footer>
   );
 }
-

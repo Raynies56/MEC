@@ -2,41 +2,56 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import { ArrowRight } from "lucide-react";
 
 export function AboutCTA() {
   return (
-    <section className="py-24 bg-neutral-50 dark:bg-slate-900 border-y border-border">
+    <section
+      className="section-padding bg-[var(--neutral-50)] dark:bg-[var(--neutral-200)] border-y border-[var(--border)]"
+      aria-labelledby="about-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-16">
-          
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
+
+          {/* ── Image ── */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex-1 w-full"
           >
-            <div className="relative aspect-square max-w-md mx-auto lg:mr-auto lg:ml-0 rounded-[2rem] overflow-hidden">
-               <img 
-                src="https://images.unsplash.com/photo-1594824406282-51c6c547cefb?q=80&w=1000&auto=format&fit=crop" 
-                alt="Doctora trabajando en consultorio" 
-                className="w-full h-full object-cover"
+            <div className="relative aspect-square max-w-md mx-auto lg:mr-auto lg:ml-0 rounded-[var(--radius-2xl)] overflow-hidden shadow-[var(--shadow-xl)]">
+              <Image
+                src="https://images.unsplash.com/photo-1594824406282-51c6c547cefb?q=80&w=1000&auto=format&fit=crop"
+                alt="Dra. Valentina Reyes atendiendo pacientes en su consultorio"
+                fill
+                sizes="(max-width: 768px) 100vw, 450px"
+                className="object-cover"
+                loading="lazy"
               />
-              <div className="absolute inset-0 bg-primary mix-blend-overlay opacity-20" />
+              <div className="absolute inset-0 bg-[var(--primary)] mix-blend-overlay opacity-15" />
             </div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+          {/* ── Copy ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex-1"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <p className="text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
+              Sobre la doctora
+            </p>
+            <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6">
               Dra. Valentina Reyes M.
             </h2>
-            <div className="space-y-4 text-neutral-600 dark:text-neutral-300 text-lg mb-8">
+            <div className="space-y-4 text-[var(--neutral-600)] text-base leading-relaxed mb-8">
               <p>
                 Con gran vocación por la salud visual, me he dedicado a la oftalmología clínica y quirúrgica, especializándome en el diagnóstico y tratamiento del glaucoma ocular y cataratas.
               </p>
@@ -48,7 +63,10 @@ export function AboutCTA() {
               </p>
             </div>
             <Link href="/sobre-mi">
-              <Button size="lg">Conocer más sobre mi trayectoria →</Button>
+              <Button size="lg" className="group">
+                Conocer más sobre mi trayectoria
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
             </Link>
           </motion.div>
 
@@ -57,4 +75,3 @@ export function AboutCTA() {
     </section>
   );
 }
-
