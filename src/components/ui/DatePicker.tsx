@@ -17,6 +17,9 @@ interface DatePickerProps {
 
 export function DatePicker({ selected, onSelect, disabledDates, disabledDaysOfWeek = [0], className }: DatePickerProps) {
   const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+
   
   return (
     <div className={cn("p-3 rounded-2xl border border-neutral-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50", className)}>

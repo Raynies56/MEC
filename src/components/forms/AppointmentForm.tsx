@@ -185,7 +185,9 @@ export function AppointmentForm() {
             {/* STEP 2: Date */}
             {step === 2 && (
               <div>
-                <h2 className="text-2xl font-bold mb-6">Selecciona una fecha</h2>
+                <h2 className="text-2xl font-bold mb-2">Selecciona una fecha</h2>
+                <p className="text-neutral-500 mb-6">Usa las flechas en el calendario para navegar entre meses y encontrar tu fecha ideal.</p>
+
                 <div className="flex justify-center">
                   <DatePicker 
                     selected={date} 

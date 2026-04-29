@@ -143,16 +143,7 @@ export default function Footer() {
             <Link href="/terminos" className="hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors">
               Términos
             </Link>
-            <Link
-              href="/admin/login"
-              className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-1.5 min-h-[44px] min-w-[44px] justify-center"
-              aria-label="Acceso para personal médico"
-            >
-              <span className="text-[10px]">🔒</span>
-              <span className="text-[11px] font-medium border-l border-white/10 pl-2">
-                Acceso médico
-              </span>
-            </Link>
+
           </div>
         </div>
       </div>
