@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { motion } from "framer-motion";
 import { StatsBar } from "@/components/admin/StatsBar";
 import { AppointmentTable } from "@/components/admin/AppointmentTable";
 import { EmptyState } from "@/components/admin/EmptyState";
@@ -109,7 +110,12 @@ export default function AdminCitasPage() {
   };
 
   return (
-    <div className="container mx-auto px-6 py-10 animate-in fade-in duration-700">
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="container mx-auto px-6 py-10"
+    >
       <StatsBar />
 
       <div className="flex flex-col lg:flex-row gap-10">
@@ -256,7 +262,7 @@ export default function AdminCitasPage() {
         onClose={() => setIsManualOpen(false)} 
         onSuccess={triggerRefresh} 
       />
-    </div>
+    </motion.div>
   );
 }
 

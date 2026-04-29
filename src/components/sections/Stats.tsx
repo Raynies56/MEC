@@ -20,8 +20,8 @@ export function Stats() {
       className="bg-[var(--primary-light)] dark:bg-[var(--neutral-200)] py-14 border-y border-[var(--border)]"
       aria-label="Estadísticas del centro"
     >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -31,14 +31,14 @@ export function Stats() {
               className="text-center flex flex-col items-center"
             >
               <div className="flex items-baseline gap-0.5">
-                <span className="text-3xl md:text-5xl font-bold text-[var(--primary)] tabular-nums">
+                <span className="text-4xl sm:text-5xl font-bold text-[var(--primary)] tabular-nums">
                   {stat.value}
                 </span>
-                <span className="text-xl md:text-3xl font-bold text-[var(--accent)]">
+                <span className="text-2xl sm:text-3xl font-bold text-[var(--accent)]">
                   {stat.suffix}
                 </span>
               </div>
-              <span className="text-sm font-medium text-[var(--neutral-500)] mt-2">
+              <span className="text-xs sm:text-sm md:text-base font-medium text-[var(--neutral-500)] mt-2">
                 {stat.label}
               </span>
             </motion.div>

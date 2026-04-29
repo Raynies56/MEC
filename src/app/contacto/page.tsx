@@ -1,10 +1,19 @@
 import React from "react";
+import type { Metadata } from "next";
 import { ContactMap } from "@/components/sections/ContactMap";
 import { FAQ } from "@/components/sections/FAQ";
 
-export const metadata = {
-  title: "Contacto | Dra. Valentina Reyes Oftalmóloga",
-  description: "Contáctanos o visítanos en Centro Oftalmológico Visión Plena en Santo Domingo.",
+export const metadata: Metadata = {
+  title: "Contacto",
+  description:
+    "Contáctanos o visítanos en Centro Oftalmológico Visión Plena. Ubicados en Av. Abraham Lincoln, Santo Domingo. Teléfono, WhatsApp y correo disponibles.",
+  alternates: { canonical: "/contacto" },
+  openGraph: {
+    title: "Contacto | Visión Plena",
+    description:
+      "Agenda tu cita o visítanos. Estamos en Santo Domingo, República Dominicana.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function ContactPage() {

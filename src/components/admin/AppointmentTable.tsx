@@ -9,6 +9,7 @@ import { LoadingSkeleton } from "./LoadingSkeleton";
 import { Check, Eye, Calendar, X, Phone, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   appointments: Appointment[];
@@ -36,8 +37,16 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
-            {appointments.map((apt) => (
-              <tr key={apt.id} className="group hover:bg-neutral-50/50 dark:hover:bg-slate-800/50 transition-colors">
+            <AnimatePresence>
+            {appointments.map((apt, index) => (
+              <motion.tr 
+                key={apt.id} 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
+                className="group hover:bg-neutral-50/50 dark:hover:bg-slate-800/50 transition-colors"
+              >
                 <td className="px-6 py-5">
                   <div className="flex flex-col">
                     <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
@@ -101,8 +110,9 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
                     )}
                   </div>
                 </td>
-              </tr>
+                </motion.tr>
             ))}
+            </AnimatePresence>
           </tbody>
         </table>
       </div>

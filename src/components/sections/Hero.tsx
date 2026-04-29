@@ -24,7 +24,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24"
+      className="relative overflow-hidden pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24"
       aria-label="Sección principal"
     >
       {/* ── Background gradient mesh ── */}
@@ -43,8 +43,8 @@ export function Hero() {
         }}
       />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-12 lg:gap-16">
 
           {/* ── Copy side ── */}
           <motion.div
@@ -64,7 +64,7 @@ export function Hero() {
             {/* Headline */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-[var(--neutral-900)] mb-6 leading-[1.08]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[var(--neutral-900)] dark:text-white mb-6 leading-[1.08]"
             >
               Tu salud visual{" "}
               <br className="hidden sm:block" />
@@ -91,7 +91,7 @@ export function Hero() {
             {/* Subtitle */}
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-[var(--neutral-600)] mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
+              className="text-base sm:text-lg md:text-xl text-[var(--neutral-600)] dark:text-gray-300 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
             >
               Más de 12 años brindando diagnósticos precisos, tecnología de última generación y atención humana personalizada.
             </motion.p>
@@ -102,13 +102,13 @@ export function Hero() {
               className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-12"
             >
               <Link href="/citas" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full text-base font-semibold group">
+                <Button size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base font-semibold group motion-safe:transition-all">
                   Agendar Cita Ahora
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-4 w-4 motion-safe:transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
               <Link href="/servicios" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full text-base">
+                <Button variant="outline" size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base motion-safe:transition-all">
                   Conocer Servicios
                 </Button>
               </Link>
@@ -117,16 +117,30 @@ export function Hero() {
             {/* Trust indicators */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center gap-6 text-sm text-[var(--neutral-500)]"
+              className="flex flex-col sm:flex-row items-center gap-6 text-sm md:text-base text-[var(--neutral-500)] dark:text-gray-400"
             >
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4.5 w-4.5 text-[var(--success)]" />
+                <CheckCircle2 className="h-5 w-5 text-[var(--success)]" />
                 <span>12+ Años de Experiencia</span>
               </div>
-              <div className="hidden sm:block w-1 h-1 rounded-full bg-[var(--neutral-300)]" />
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-[var(--neutral-300)] dark:bg-gray-600" />
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4.5 w-4.5 text-[var(--success)]" />
+                <CheckCircle2 className="h-5 w-5 text-[var(--success)]" />
                 <span>+5,000 Pacientes Felices</span>
+              </div>
+            </motion.div>
+
+            {/* Insurance badge (moved from image) */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 inline-flex items-center gap-3 p-4 bg-white dark:bg-[var(--card)] rounded-xl shadow-sm border border-neutral-100 dark:border-slate-800 text-left motion-safe:transition-all hover:shadow-md"
+            >
+              <div className="bg-[var(--success)]/15 p-2.5 rounded-lg shrink-0">
+                <CheckCircle2 className="h-5 w-5 text-[var(--success)]" />
+              </div>
+              <div>
+                <p className="font-bold text-[var(--neutral-900)] dark:text-white text-sm md:text-base">Seguros Aceptados</p>
+                <p className="text-xs md:text-sm text-[var(--neutral-500)] dark:text-gray-400">Humano, Universal, Mapfre y más</p>
               </div>
             </motion.div>
           </motion.div>
@@ -142,7 +156,7 @@ export function Hero() {
               {/* Skeleton placeholder */}
               <div className="absolute inset-0 bg-[var(--neutral-100)] animate-pulse" />
               <Image
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop"
+                src="/hero.png"
                 alt="Dra. Valentina Reyes, oftalmóloga especialista en glaucoma y cataratas"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
@@ -154,8 +168,8 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--neutral-950)]/50 via-transparent to-transparent" />
 
               {/* Doctor info card */}
-              <div className="absolute bottom-5 left-5 right-5 p-4 glass rounded-xl">
-                <p className="font-bold text-[var(--neutral-900)]">
+              <div className="absolute bottom-5 left-5 right-5 p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-800/50 shadow-lg">
+                <p className="font-bold text-[var(--neutral-900)] dark:text-white">
                   Dra. Valentina Reyes M.
                 </p>
                 <p className="text-sm text-[var(--neutral-600)]">
@@ -164,21 +178,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* ── Floating insurance badge ── */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="absolute top-8 -left-6 lg:-left-12 p-4 glass rounded-xl hidden sm:flex items-center gap-3 shadow-lg"
-            >
-              <div className="bg-[var(--success)]/15 p-2.5 rounded-lg">
-                <CheckCircle2 className="h-5 w-5 text-[var(--success)]" />
-              </div>
-              <div>
-                <p className="font-bold text-[var(--neutral-900)] text-sm">Seguros Aceptados</p>
-                <p className="text-xs text-[var(--neutral-500)]">Humano, Universal, y más</p>
-              </div>
-            </motion.div>
           </motion.div>
 
         </div>

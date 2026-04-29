@@ -1,9 +1,18 @@
 import React from "react";
+import type { Metadata } from "next";
 import { Services } from "@/components/sections/Services";
 
-export const metadata = {
-  title: "Servicios | Dra. Valentina Reyes Oftalmóloga",
-  description: "Tratamientos y servicios oftalmológicos: cataratas, glaucoma, lentes, neuroftalmología y más.",
+export const metadata: Metadata = {
+  title: "Servicios Oftalmológicos",
+  description:
+    "Tratamientos y servicios oftalmológicos: consultas generales, cataratas, glaucoma, examen visual, lentes y urgencias oculares. Tecnología de vanguardia en Santo Domingo.",
+  alternates: { canonical: "/servicios" },
+  openGraph: {
+    title: "Servicios Oftalmológicos | Visión Plena",
+    description:
+      "Diagnóstico y tratamiento integral para cataratas, glaucoma, miopía y más.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function ServicesPage() {

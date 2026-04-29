@@ -69,7 +69,7 @@ export default function Navbar() {
             : "bg-transparent py-5"
         )}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-2.5 group" aria-label="Visión Plena — Inicio">
             <div className="bg-[var(--primary)]/10 p-2 rounded-xl group-hover:bg-[var(--primary)]/20 transition-colors duration-200">
@@ -113,7 +113,7 @@ export default function Navbar() {
               {mounted && (
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="rounded-lg p-2.5 text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] transition-colors duration-200"
+                  className="rounded-lg p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] transition-colors duration-200"
                   aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
                 >
                   {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
@@ -132,7 +132,7 @@ export default function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-lg p-2 text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] transition-colors"
+                className="rounded-lg p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] transition-colors"
                 aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
               >
                 {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -140,7 +140,7 @@ export default function Navbar() {
             )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="text-[var(--neutral-900)] p-2 rounded-lg hover:bg-[var(--neutral-100)] transition-colors"
+              className="text-[var(--neutral-900)] p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-[var(--neutral-100)] transition-colors"
               aria-label="Abrir menú de navegación"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-nav"
@@ -182,7 +182,7 @@ export default function Navbar() {
               <div className="p-5 flex justify-end">
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-lg bg-[var(--neutral-100)] hover:bg-[var(--neutral-200)] transition-colors"
+                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-[var(--neutral-100)] hover:bg-[var(--neutral-200)] transition-colors"
                   aria-label="Cerrar menú"
                 >
                   <X className="h-5 w-5 text-[var(--neutral-600)]" />

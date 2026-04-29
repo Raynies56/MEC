@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
@@ -45,33 +45,60 @@ export function Testimonials() {
     exit: (dir: number) => ({ x: dir > 0 ? -60 : 60, opacity: 0 }),
   };
 
+  /* ── Keyboard navigation (WCAG 2.1.1) ── */
+  const containerRef = useRef<HTMLDivElement>(null);
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        next();
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        prev();
+      }
+    },
+    [next, prev]
+  );
+
   return (
     <section
       className="section-padding bg-[var(--background)] overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
-      <div className="container mx-auto px-4">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
             Testimonios
           </p>
-          <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 id="testimonials-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Lo Que Dicen Nuestros Pacientes
           </h2>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div
+          ref={containerRef}
+          className="relative max-w-4xl mx-auto"
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="region"
+          aria-roledescription="carrusel"
+          aria-label="Testimonios de pacientes"
+        >
+          {/* Screen reader live region */}
+          <div className="sr-only" aria-live="polite" aria-atomic="true">
+            Testimonio {current + 1} de {TESTIMONIALS.length}: {TESTIMONIALS[current].name}, {TESTIMONIALS[current].service}
+          </div>
           {/* ── Navigation arrows ── */}
           <button
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-14 z-10 p-3 rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 transition-all duration-200"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-14 z-10 p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 motion-safe:transition-all duration-200"
             aria-label="Testimonio anterior"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-14 z-10 p-3 rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 transition-all duration-200"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-14 z-10 p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-[var(--card)] shadow-[var(--shadow-md)] border border-[var(--border)] text-[var(--neutral-500)] hover:text-[var(--primary)] hover:border-[var(--primary)]/30 motion-safe:transition-all duration-200"
             aria-label="Siguiente testimonio"
           >
             <ChevronRight className="h-5 w-5" />
@@ -80,9 +107,6 @@ export function Testimonials() {
           {/* ── Testimonial card ── */}
           <div
             className="relative bg-[var(--primary-light)]/50 dark:bg-[var(--neutral-200)] rounded-[var(--radius-2xl)] p-8 md:p-16 min-h-[320px] flex items-center justify-center"
-            role="region"
-            aria-roledescription="carrusel"
-            aria-label="Testimonios de pacientes"
           >
             <Quote className="absolute top-6 left-6 md:top-8 md:left-8 h-10 w-10 text-[var(--primary)]/10 rotate-180" aria-hidden="true" />
 
@@ -130,7 +154,7 @@ export function Testimonials() {
                 <button
                   key={i}
                   onClick={() => navigate(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                  className={`h-2 rounded-full motion-safe:transition-all duration-300 ${
                     current === i
                       ? "bg-[var(--primary)] w-8"
                       : "bg-[var(--primary)]/20 w-2 hover:bg-[var(--primary)]/40"

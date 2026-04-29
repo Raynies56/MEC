@@ -51,10 +51,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: "h-9 px-4 text-sm rounded-lg gap-1.5",
-      md: "h-11 px-6 text-sm rounded-full gap-2",
-      lg: "h-13 px-8 text-base rounded-full gap-2",
-      icon: "h-10 w-10 rounded-full",
+      sm: "h-11 px-4 text-sm rounded-lg gap-1.5 min-h-[44px] min-w-[44px]", // Increased from h-9 to h-11 for accessibility
+      md: "h-11 px-6 text-sm md:text-base rounded-full gap-2 min-h-[44px] min-w-[44px]",
+      lg: "h-14 px-8 text-base md:text-lg rounded-full gap-2 min-h-[44px] min-w-[44px]", // Changed h-13 to h-14
+      icon: "h-11 w-11 rounded-full min-h-[44px] min-w-[44px]", // Increased from h-10 to h-11
     };
 
     return (

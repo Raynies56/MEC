@@ -19,7 +19,7 @@ export function DatePicker({ selected, onSelect, disabledDates, disabledDaysOfWe
   const today = new Date();
   
   return (
-    <div className={cn("p-3 rounded-2xl border bg-white/50 dark:bg-slate-900/50", className)}>
+    <div className={cn("p-3 rounded-2xl border border-neutral-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50", className)}>
       <DayPicker
         mode="single"
         selected={selected}
@@ -30,7 +30,6 @@ export function DatePicker({ selected, onSelect, disabledDates, disabledDaysOfWe
           (date) => disabledDaysOfWeek.includes(date.getDay()),
           ...(disabledDates || []),
         ]}
-        showOutsideDays
         className="rdp"
         modifiers={{
           today: today,

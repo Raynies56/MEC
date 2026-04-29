@@ -1,9 +1,18 @@
 import React from "react";
+import type { Metadata } from "next";
 import { AboutCTA } from "@/components/sections/AboutCTA";
 
-export const metadata = {
-  title: "Sobre Mí | Dra. Valentina Reyes Oftalmóloga",
-  description: "Conoce más sobre la trayectoria y experiencia de la Dra. Valentina Reyes M.",
+export const metadata: Metadata = {
+  title: "Sobre Mí",
+  description:
+    "Conoce la trayectoria y experiencia de la Dra. Valentina Reyes M., cirujana oftalmóloga especialista en glaucoma y cataratas con más de 12 años de experiencia.",
+  alternates: { canonical: "/sobre-mi" },
+  openGraph: {
+    title: "Sobre la Dra. Valentina Reyes | Visión Plena",
+    description:
+      "Cirujana oftalmóloga con más de 12 años de experiencia en glaucoma, cataratas y salud visual.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function SobreMiPage() {

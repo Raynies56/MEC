@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFAB from "@/components/layout/WhatsAppFAB";
 import { ToastContainer } from "@/components/ui/Toast";
+import { JsonLd } from "@/components/layout/JsonLd";
 
 /* ── Fonts: Inter for body, Playfair Display for accents ── */
 const inter = Inter({
@@ -38,6 +39,10 @@ export const metadata: Metadata = {
     "oftalmología pediátrica",
     "Dra. Valentina Reyes",
   ],
+  metadataBase: new URL("https://visionplena.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Dra. Valentina Reyes | Oftalmóloga en Santo Domingo",
     description:
@@ -45,6 +50,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_DO",
     siteName: "Visión Plena",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Visión Plena — Dra. Valentina Reyes, Oftalmóloga",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dra. Valentina Reyes | Oftalmóloga en Santo Domingo",
+    description:
+      "Centro oftalmológico especializado en glaucoma, cataratas y salud visual.",
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -72,7 +92,16 @@ export default function RootLayout({
         className={`${inter.variable} ${playfair.variable} font-sans min-h-screen flex flex-col pt-20 antialiased`}
         suppressHydrationWarning
       >
+        {/* Skip-to-content link for keyboard/screen-reader users (WCAG 2.4.1) */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-[var(--primary)] focus:text-white focus:rounded-lg focus:font-semibold focus:shadow-xl focus:outline-none"
+        >
+          Saltar al contenido principal
+        </a>
+
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <JsonLd />
           <Navbar />
           <main className="flex-grow" id="main-content">
             {children}

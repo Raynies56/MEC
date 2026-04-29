@@ -7,7 +7,8 @@ import { Resend } from "resend";
 import { confirmationEmail, cancellationEmail, rescheduleEmail } from "@/lib/email-templates";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Fallback to a dummy key during build time to prevent "Missing API key" error
+const resend = new Resend(process.env.RESEND_API_KEY || "re_123456789");
 
 const updateSchema = z.object({
   status: z.enum(['pending', 'confirmed', 'cancelled', 'rescheduled']).optional(),
@@ -17,11 +18,12 @@ const updateSchema = z.object({
   notify_patient: z.boolean().optional().default(false),
 });
 
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getSession();
   if (!session.isLoggedIn) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const { id } = await params;
 
   try {
     const body = await request.json();
@@ -34,7 +36,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     const { status, new_date, new_time, doctor_notes, notify_patient } = result.data;
     
     // 1. Obtener cita actual para el email
-    const currentApt = await getAppointmentById(params.id);
+    const currentApt = await getAppointmentById(id);
     if (!currentApt) {
       return NextResponse.json({ error: "Cita no encontrada" }, { status: 404 });
     }
@@ -46,7 +48,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     if (new_time) updatedData.time = new_time;
     if (doctor_notes !== undefined) updatedData.doctor_notes = doctor_notes;
 
-    const updatedApt = await updateAppointment(params.id, updatedData);
+    const updatedApt = await updateAppointment(id, updatedData);
 
     // 3. Notificar al paciente si se solicita
     if (notify_patient) {

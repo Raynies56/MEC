@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import { Appointment, TimeSlot } from "@/types/admin";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Lock, Plus, Calendar as CalendarIcon, ChevronLeft, ChevronRight, Activity } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { LoadingSkeleton } from "./LoadingSkeleton";
@@ -68,13 +69,17 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
             <p className="text-[10px] uppercase font-black text-neutral-400 tracking-tighter">No hay horarios activos</p>
           </div>
         ) : (
-          slots.map((slot) => {
+          <AnimatePresence>
+          {slots.map((slot, index) => {
             const isAppt = !!slot.appointment;
             const isBlocked = slot.blocked;
 
             return (
-              <div 
+              <motion.div 
                 key={slot.time}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.2, delay: index * 0.05 }}
                 onClick={() => isAppt && onAppointmentClick(slot.appointment!)}
                 className={`group relative flex items-center gap-4 p-3.5 rounded-2xl border transition-all duration-300 ${
                   isAppt 
@@ -121,9 +126,10 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
                       <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                    </div>
                 )}
-              </div>
+              </motion.div>
             );
-          })
+          })}
+          </AnimatePresence>
         )}
       </div>
 

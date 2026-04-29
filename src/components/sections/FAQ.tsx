@@ -14,12 +14,12 @@ export function FAQ() {
       className="section-padding bg-[var(--neutral-50)] dark:bg-[var(--neutral-200)] border-t border-[var(--border)]"
       aria-labelledby="faq-heading"
     >
-      <div className="container mx-auto px-4 max-w-3xl">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
         <div className="text-center mb-14">
           <p className="text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
             FAQ
           </p>
-          <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 id="faq-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Preguntas Frecuentes
           </h2>
           <p className="text-[var(--neutral-500)] text-lg">

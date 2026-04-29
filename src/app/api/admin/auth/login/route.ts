@@ -10,7 +10,26 @@ const loginSchema = z.object({
   password: z.string().min(6),
 });
 
+import { checkRateLimit, getClientIP } from "@/lib/rate-limit";
+
 export async function POST(request: Request) {
+  // Rate limit: 5 login attempts per 15 minutes per IP
+  const ip = getClientIP(request);
+  const { allowed, remaining, resetIn } = checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
+
+  if (!allowed) {
+    return NextResponse.json(
+      { error: 'Demasiados intentos. Intente de nuevo más tarde.' },
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(Math.ceil(resetIn / 1000)),
+          'X-RateLimit-Remaining': '0',
+        },
+      }
+    );
+  }
+
   try {
     const body = await request.json();
     const result = loginSchema.safeParse(body);

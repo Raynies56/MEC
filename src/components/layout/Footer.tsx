@@ -29,7 +29,7 @@ export default function Footer() {
       role="contentinfo"
       className="bg-[var(--neutral-950)] dark:bg-[var(--neutral-100)] text-[var(--neutral-400)] pt-16 pb-8"
     >
-      <div className="container mx-auto px-4">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14">
 
           {/* ── Brand column ── */}
@@ -57,7 +57,7 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--neutral-400)] hover:text-white transition-colors duration-200"
+                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-[var(--neutral-400)] hover:text-white transition-colors duration-200"
                   aria-label={`Síguenos en ${label}`}
                 >
                   <Icon className="h-4.5 w-4.5" />
@@ -145,7 +145,7 @@ export default function Footer() {
             </Link>
             <Link
               href="/admin/login"
-              className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-1.5"
+              className="opacity-50 hover:opacity-100 transition-opacity flex items-center gap-1.5 min-h-[44px] min-w-[44px] justify-center"
               aria-label="Acceso para personal médico"
             >
               <span className="text-[10px]">🔒</span>

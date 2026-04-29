@@ -13,7 +13,7 @@ export function AboutCTA() {
       className="section-padding bg-[var(--neutral-50)] dark:bg-[var(--neutral-200)] border-y border-[var(--border)]"
       aria-labelledby="about-heading"
     >
-      <div className="container mx-auto px-4">
+      <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
 
           {/* ── Image ── */}
@@ -26,7 +26,7 @@ export function AboutCTA() {
           >
             <div className="relative aspect-square max-w-md mx-auto lg:mr-auto lg:ml-0 rounded-[var(--radius-2xl)] overflow-hidden shadow-[var(--shadow-xl)]">
               <Image
-                src="https://images.unsplash.com/photo-1594824406282-51c6c547cefb?q=80&w=1000&auto=format&fit=crop"
+                src="/about.png"
                 alt="Dra. Valentina Reyes atendiendo pacientes en su consultorio"
                 fill
                 sizes="(max-width: 768px) 100vw, 450px"
@@ -45,13 +45,13 @@ export function AboutCTA() {
             transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="flex-1"
           >
-            <p className="text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
+            <p className="text-xs sm:text-sm font-medium text-[var(--accent)] uppercase tracking-widest mb-3">
               Sobre la doctora
             </p>
-            <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 id="about-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               Dra. Valentina Reyes M.
             </h2>
-            <div className="space-y-4 text-[var(--neutral-600)] text-base leading-relaxed mb-8">
+            <div className="space-y-4 text-[var(--neutral-600)] dark:text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed mb-8">
               <p>
                 Con gran vocación por la salud visual, me he dedicado a la oftalmología clínica y quirúrgica, especializándome en el diagnóstico y tratamiento del glaucoma ocular y cataratas.
               </p>
@@ -63,9 +63,9 @@ export function AboutCTA() {
               </p>
             </div>
             <Link href="/sobre-mi">
-              <Button size="lg" className="group">
+              <Button size="lg" className="group min-h-[44px] min-w-[44px] text-sm sm:text-base motion-safe:transition-all">
                 Conocer más sobre mi trayectoria
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 h-4 w-4 motion-safe:transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </motion.div>

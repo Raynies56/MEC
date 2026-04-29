@@ -73,9 +73,9 @@ export function AppointmentForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleNext = () => {
-    if (step === 1 && !reason) return toast.error("Selecciona un motivo");
-    if (step === 2 && !date) return toast.error("Selecciona una fecha");
-    if (step === 3 && !time) return toast.error("Selecciona un horario");
+    if (step === 1 && !reason) return toast.error("Por favor selecciona un motivo");
+    if (step === 2 && !date) return toast.error("Por favor selecciona una fecha en el calendario");
+    if (step === 3 && !time) return toast.error("Por favor selecciona un horario disponible");
     
     if (step === 2 && date) {
       fetchAvailability(date);
@@ -145,7 +145,7 @@ export function AppointmentForm() {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-border p-6 md:p-10 mb-20 relative overflow-hidden">
+    <div className="w-full max-w-3xl mx-auto bg-white dark:bg-[var(--card)] rounded-3xl shadow-xl border border-border p-6 md:p-10 mb-20 relative overflow-hidden">
       <StepIndicator />
       
       <div className="min-h-[400px]">
@@ -166,10 +166,13 @@ export function AppointmentForm() {
                     <Card 
                       key={r}
                       hoverEffect
-                      className={`cursor-pointer transition-all border-2 ${reason === r ? "border-primary bg-primary/5" : "border-transparent"}`}
-                      onClick={() => setReason(r)}
+                      className={`cursor-pointer transition-all border-2 ${reason === r ? "border-primary bg-primary/5 dark:bg-primary/20" : "border-transparent dark:border-slate-800"}`}
+                      onClick={() => {
+                        setReason(r);
+                        setTimeout(() => setStep(2 as any), 150);
+                      }}
                     >
-                      <div className="p-4 flex items-center justify-between font-medium">
+                      <div className="p-4 flex items-center justify-between font-medium text-neutral-900 dark:text-white">
                         {r}
                         {reason === r && <CheckCircle2 className="text-primary w-5 h-5 shrink-0" />}
                       </div>
@@ -186,7 +189,13 @@ export function AppointmentForm() {
                 <div className="flex justify-center">
                   <DatePicker 
                     selected={date} 
-                    onSelect={(d) => d && setDate(d)} 
+                    onSelect={(d) => {
+                      if(d) {
+                        setDate(d);
+                        fetchAvailability(d);
+                        setTimeout(() => setStep(3 as any), 150);
+                      }
+                    }} 
                     className="shadow-md"
                   />
                 </div>
@@ -203,7 +212,14 @@ export function AppointmentForm() {
                 {loading ? (
                   <div className="flex justify-center p-12"><div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin" /></div>
                 ) : (
-                  <TimePicker slots={slots} selected={time} onSelect={setTime} />
+                  <TimePicker 
+                    slots={slots} 
+                    selected={time} 
+                    onSelect={(t) => {
+                      setTime(t);
+                      setTimeout(() => setStep(4 as any), 150);
+                    }} 
+                  />
                 )}
               </div>
             )}
@@ -243,9 +259,9 @@ export function AppointmentForm() {
                       id="first_visit" 
                       checked={patientInfo.is_first_visit}
                       onChange={e => setPatientInfo({ is_first_visit: e.target.checked })}
-                      className="w-5 h-5 rounded border-neutral-300 text-primary focus:ring-primary"
+                      className="w-5 h-5 rounded border-neutral-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-primary focus:ring-primary"
                     />
-                    <label htmlFor="first_visit" className="font-medium cursor-pointer">¿Es tu primera visita con la Dra. Valentina?</label>
+                    <label htmlFor="first_visit" className="font-medium cursor-pointer text-neutral-900 dark:text-neutral-100">¿Es tu primera visita con la Dra. Valentina?</label>
                   </div>
                   <Textarea 
                     label="Notas Adicionales (Opcional)" 
@@ -288,7 +304,7 @@ export function AppointmentForm() {
                 
                 <div className="mt-6 flex items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400 bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl">
                   <input type="checkbox" id="terms" className="mt-1" defaultChecked />
-                  <label htmlFor="terms">
+                  <label htmlFor="terms" className="dark:text-neutral-300">
                     Acepto el tratamiento de mis datos personales para gestionar la reserva y recibir comunicaciones de salud visual. Entiendo que puedo cancelar con 24 horas de antelación.
                   </label>
                 </div>
@@ -308,7 +324,14 @@ export function AppointmentForm() {
         
         <div className="ml-auto">
           {step < 5 ? (
-            <Button onClick={handleNext}>
+            <Button 
+              onClick={handleNext}
+              disabled={
+                (step === 1 && !reason) ||
+                (step === 2 && !date) ||
+                (step === 3 && !time)
+              }
+            >
               Siguiente
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
