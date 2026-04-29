@@ -33,7 +33,7 @@ async function seedDoctor() {
   const hash = await bcrypt.hash(password, saltRounds);
 
   const { data, error } = await supabase
-    .from("doctor_users")
+    .from("admin_users")
     .upsert({ 
       email, 
       password_hash: hash, 
