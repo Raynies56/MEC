@@ -54,11 +54,11 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    @apply tracking-tight;
+    letter-spacing: -0.025em; /* tracking-tight */
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    font-weight: 700; /* font-bold */
     color: var(--neutral-900);
   }
 }
@@ -85,7 +85,7 @@
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    @apply shadow-sm;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
   }
   .dark .glass {
     background-color: rgba(15, 23, 42, 0.7);
