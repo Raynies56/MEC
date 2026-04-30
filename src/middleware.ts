@@ -39,22 +39,25 @@ export async function middleware(request: NextRequest) {
 
   // Security Headers
   const isDev = process.env.NODE_ENV === "development";
-  const csp = [
-    "default-src 'self'",
-    `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://*.google.com https://*.googleapis.com https://*.googletagmanager.com`,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.google.com",
-    "font-src 'self' https://fonts.gstatic.com",
-    "img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.supabase.co",
-    "frame-src 'self' https://*.google.com https://google.com https://*.google.com.do https://*.gstatic.com",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.googleapis.com https://*.google.com https://*.google-analytics.com",
-    "object-src 'none'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "frame-ancestors 'none'",
-    "upgrade-insecure-requests"
-  ];
+  const scriptSrc = `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://*.google.com https://*.googleapis.com https://*.googletagmanager.com`;
 
-  res.headers.set("Content-Security-Policy", csp.join('; '));
+  res.headers.set(
+    "Content-Security-Policy",
+    [
+      "default-src 'self'",
+      scriptSrc,
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.google.com",
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.supabase.co",
+      "frame-src 'self' https://*.google.com https://google.com https://*.google.com.do https://*.gstatic.com",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.googleapis.com https://*.google.com https://*.google-analytics.com",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+      "upgrade-insecure-requests"
+    ].join('; ')
+  );
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");

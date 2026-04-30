@@ -90,7 +90,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans min-h-screen flex flex-col pt-20 antialiased`}
+        className={`${inter.variable} ${playfair.variable} font-sans min-h-screen flex flex-col antialiased`}
         suppressHydrationWarning
       >
         {/* Skip-to-content link for keyboard/screen-reader users (WCAG 2.4.1) */}
@@ -102,13 +102,7 @@ export default function RootLayout({
         </a>
 
         <ConditionalThemeProvider>
-          <JsonLd />
-          <Navbar />
-          <main className="flex-grow" id="main-content">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppFAB />
+          {children}
           <ToastContainer />
         </ConditionalThemeProvider>
       </body>
