@@ -11,6 +11,14 @@ const nextConfig = {
 
   // Security headers for production
   async headers() {
+    const isDev = process.env.NODE_ENV === 'development';
+    
+    // In development, we need 'unsafe-eval' for Fast Refresh and error source maps
+    // React/Next.js will NEVER use eval in production.
+    const scriptSrc = isDev 
+      ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.googletagmanager.com"
+      : "script-src 'self' 'unsafe-inline' https://*.google.com https://*.googleapis.com https://*.googletagmanager.com";
+
     return [
       {
         source: '/(.*)',
@@ -31,7 +39,7 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://*.google.com https://*.googleapis.com https://*.googletagmanager.com",
+              scriptSrc,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.google.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleapis.com https://*.gstatic.com https://*.supabase.co",

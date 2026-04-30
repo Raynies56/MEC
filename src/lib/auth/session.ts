@@ -4,10 +4,10 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData } from "@/types/admin";
 
-const SESSION_PASSWORD = process.env.SESSION_PASSWORD;
+const SESSION_PASSWORD = process.env.SESSION_PASSWORD || process.env.SESSION_SECRET;
 
 if (!SESSION_PASSWORD || SESSION_PASSWORD.length < 32) {
-  throw new Error("❌ SEGURIDAD CRÍTICA: SESSION_PASSWORD debe tener al menos 32 caracteres.");
+  throw new Error("❌ SEGURIDAD CRÍTICA: SESSION_PASSWORD o SESSION_SECRET debe tener al menos 32 caracteres.");
 }
 
 export const sessionOptions = {
