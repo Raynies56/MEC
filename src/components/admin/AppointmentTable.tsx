@@ -6,7 +6,7 @@ import React from "react";
 import { Appointment } from "@/types/admin";
 import { StatusBadge } from "./StatusBadge";
 import { LoadingSkeleton } from "./LoadingSkeleton";
-import { Check, Eye, Calendar, X, Phone, Mail } from "lucide-react";
+import { Check, Eye, Calendar, X, Phone, Mail, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,11 +18,29 @@ interface Props {
   onReschedule: (apt: Appointment) => void;
   onCancel: (apt: Appointment) => void;
   onConfirm: (apt: Appointment) => void;
+  onDelete: (apt: Appointment) => void;
+  selectedIds?: string[];
+  onToggleSelection?: (id: string) => void;
+  onSelectAll?: (ids: string[]) => void;
   activeTab?: string;
 }
 
-export function AppointmentTable({ appointments, isLoading, onView, onReschedule, onCancel, onConfirm, activeTab }: Props) {
+export function AppointmentTable({ 
+  appointments, 
+  isLoading, 
+  onView, 
+  onReschedule, 
+  onCancel, 
+  onConfirm, 
+  onDelete,
+  selectedIds = [],
+  onToggleSelection,
+  onSelectAll,
+  activeTab 
+}: Props) {
   if (isLoading) return <LoadingSkeleton variant="table" rows={10} />;
+
+  const isAllSelected = appointments.length > 0 && selectedIds.length === appointments.length;
 
   // Agrupar citas por fecha si estamos en la pestaña "Próximas"
   const groupedAppointments: { [key: string]: Appointment[] } = {};
@@ -40,8 +58,18 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.2, delay: index * 0.05 }}
-      className="group hover:bg-bg-secondary dark:hover:bg-bg-secondary/50 transition-colors"
+      className={`group hover:bg-bg-secondary dark:hover:bg-bg-secondary/50 transition-colors ${
+        selectedIds.includes(apt.id) ? 'bg-primary/5' : ''
+      }`}
     >
+      <td className="px-6 py-5">
+        <input 
+          type="checkbox" 
+          className="w-4 h-4 rounded border-border text-primary focus:ring-primary transition-all cursor-pointer"
+          checked={selectedIds.includes(apt.id)}
+          onChange={() => onToggleSelection?.(apt.id)}
+        />
+      </td>
       <td className="px-6 py-5">
         <div className="flex flex-col">
           <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
@@ -103,6 +131,13 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
               </button>
             </>
           )}
+          <button 
+            onClick={() => onDelete(apt)}
+            className="p-2.5 rounded-xl bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-500 hover:bg-red-600 hover:text-white transition-all shadow-sm"
+            title="Eliminar permanentemente"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
         </div>
       </td>
     </motion.tr>
@@ -114,6 +149,14 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-bg-secondary dark:bg-bg-secondary/50 border-b border-border">
+              <th className="px-6 py-5 w-10">
+                <input 
+                  type="checkbox" 
+                  className="w-4 h-4 rounded border-border text-primary focus:ring-primary transition-all cursor-pointer"
+                  checked={isAllSelected}
+                  onChange={() => onSelectAll?.(isAllSelected ? [] : appointments.map(a => a.id))}
+                />
+              </th>
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Paciente</th>
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Motivo</th>
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Fecha y Hora</th>
@@ -127,7 +170,7 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
               Object.entries(groupedAppointments).map(([date, appts]) => (
                 <React.Fragment key={date}>
                   <tr className="bg-bg-secondary dark:bg-bg-secondary/30">
-                    <td colSpan={5} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                    <td colSpan={6} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
                       {format(new Date(date + 'T00:00:00'), "EEEE, d 'de' MMMM", { locale: es })}
                     </td>
                   </tr>

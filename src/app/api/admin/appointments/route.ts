@@ -60,3 +60,24 @@ export async function POST(request: Request) {
   }
 }
 
+export async function DELETE(request: Request) {
+  const session = await getSession();
+  if (!session.isLoggedIn) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { ids } = await request.json();
+    if (!ids || !Array.isArray(ids)) {
+      return NextResponse.json({ error: "IDs inválidos" }, { status: 400 });
+    }
+
+    const { deleteMultipleAppointments } = await import("@/lib/db/appointments");
+    await deleteMultipleAppointments(ids);
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("Bulk delete error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+

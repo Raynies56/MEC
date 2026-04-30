@@ -174,3 +174,27 @@ export async function createManualAppointment(data: Partial<Appointment>): Promi
   return created as Appointment;
 }
 
+/**
+ * Elimina una cita permanentemente
+ */
+export async function deleteAppointment(id: string): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("appointments")
+    .delete()
+    .eq("id", id);
+
+  if (error) throw error;
+}
+
+/**
+ * Elimina múltiples citas permanentemente
+ */
+export async function deleteMultipleAppointments(ids: string[]): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("appointments")
+    .delete()
+    .in("id", ids);
+
+  if (error) throw error;
+}
+
