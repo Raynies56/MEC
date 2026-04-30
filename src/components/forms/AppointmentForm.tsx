@@ -45,11 +45,11 @@ function StepIndicator() {
           const isPast = step > num;
           
           return (
-            <div key={label} className="flex flex-col items-center gap-2 bg-white dark:bg-slate-950 px-2">
+            <div key={label} className="flex flex-col items-center gap-2 bg-[var(--bg-card)] px-2">
               <div 
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                  isActive ? "bg-primary text-white scale-110 shadow-lg shadow-primary/30" : 
-                  isPast ? "bg-primary text-white" : "bg-neutral-200 text-neutral-500 dark:bg-slate-800 dark:text-neutral-400"
+                  isActive ? "bg-[var(--accent-color)] text-white scale-110 shadow-lg shadow-[var(--accent-color)]/30" : 
+                  isPast ? "bg-[var(--accent-color)] text-white" : "bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--border-color)]"
                 }`}
               >
                 {isPast ? <CheckCircle2 className="w-5 h-5" /> : num}
@@ -145,7 +145,7 @@ export function AppointmentForm() {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white dark:bg-[var(--card)] rounded-3xl shadow-xl border border-border p-6 md:p-10 mb-20 relative overflow-hidden">
+    <div className="w-full max-w-3xl mx-auto bg-[var(--bg-card)] rounded-3xl shadow-xl border border-[var(--border-color)] p-6 md:p-10 mb-20 relative overflow-hidden">
       <StepIndicator />
       
       <div className="min-h-[400px]">
@@ -166,7 +166,11 @@ export function AppointmentForm() {
                     <Card 
                       key={r}
                       hoverEffect
-                      className={`cursor-pointer transition-all border-2 ${reason === r ? "border-primary bg-primary/5 dark:bg-primary/20" : "border-transparent dark:border-slate-800"}`}
+                      className={`cursor-pointer transition-all border-2 ${
+                        reason === r 
+                          ? "border-[var(--accent-color)] bg-[var(--accent-color)]/5" 
+                          : "border-[var(--border-color)] bg-[var(--bg-secondary)]/50"
+                      }`}
                       onClick={() => {
                         setReason(r);
                         setTimeout(() => setStep(2 as any), 150);
@@ -255,15 +259,15 @@ export function AppointmentForm() {
                       error={errors.email}
                     />
                   </div>
-                  <div className="flex items-center gap-2 mt-4 p-4 rounded-xl bg-neutral-50 dark:bg-slate-800 border">
+                  <div className="flex items-center gap-2 mt-4 p-4 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)]">
                     <input 
                       type="checkbox" 
                       id="first_visit" 
                       checked={patientInfo.is_first_visit}
                       onChange={e => setPatientInfo({ is_first_visit: e.target.checked })}
-                      className="w-5 h-5 rounded border-neutral-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-primary focus:ring-primary"
+                      className="w-5 h-5 rounded border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--accent-color)] focus:ring-[var(--accent-color)]"
                     />
-                    <label htmlFor="first_visit" className="font-medium cursor-pointer text-neutral-900 dark:text-neutral-100">¿Es tu primera visita con la Dra. Valentina?</label>
+                    <label htmlFor="first_visit" className="font-medium cursor-pointer text-[var(--text-primary)]">¿Es tu primera visita con la Dra. Valentina?</label>
                   </div>
                   <Textarea 
                     label="Notas Adicionales (Opcional)" 

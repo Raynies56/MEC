@@ -18,7 +18,7 @@ interface TimePickerProps {
 export function TimePicker({ slots, selected, onSelect, className }: TimePickerProps) {
   if (!slots || slots.length === 0) {
     return (
-      <div className="p-8 text-center text-neutral-500 rounded-xl border border-dashed border-neutral-300 dark:border-slate-700">
+      <div className="p-8 text-center text-neutral-500 rounded-xl border border-dashed border-border">
         No hay horarios disponibles para esta fecha.
       </div>
     );
@@ -49,8 +49,8 @@ export function TimePicker({ slots, selected, onSelect, className }: TimePickerP
             onClick={() => onSelect(time)}
             className={cn(
               "py-3 px-2 rounded-xl text-sm font-medium transition-all border",
-              !available && "opacity-50 cursor-not-allowed bg-neutral-100 border-transparent text-neutral-400 dark:bg-slate-800",
-              available && !isSelected && "bg-white border-border hover:border-accent hover:text-accent shadow-sm dark:bg-slate-900",
+              !available && "opacity-50 cursor-not-allowed bg-bg-secondary border-transparent text-neutral-400 dark:bg-bg-secondary",
+              available && !isSelected && "bg-bg-card border-border hover:border-accent hover:text-accent shadow-sm dark:bg-bg-card",
               isSelected && "bg-accent border-accent text-white shadow-md shadow-accent/20"
             )}
           >

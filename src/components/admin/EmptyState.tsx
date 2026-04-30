@@ -41,11 +41,11 @@ export function EmptyState({ tab, hasFilters, onClearFilters }: Props) {
 
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
-      <div className="mb-6 p-6 bg-neutral-50 dark:bg-slate-800 rounded-full">
+      <div className="mb-6 p-6 bg-bg-secondary dark:bg-bg-secondary rounded-full">
         {current.icon}
       </div>
-      <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">{current.title}</h3>
-      <p className="text-neutral-500 max-w-sm mx-auto mb-8">{current.desc}</p>
+      <h3 className="text-xl font-bold text-text-primary dark:text-text-primary mb-2">{current.title}</h3>
+      <p className="text-text-secondary max-w-sm mx-auto mb-8">{current.desc}</p>
       
       {isSearch && onClearFilters && (
         <Button variant="outline" onClick={onClearFilters}>

@@ -102,7 +102,7 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
             <label className="text-sm font-black uppercase tracking-widest text-neutral-400 flex items-center gap-2">
               <Calendar className="w-4 h-4" /> 1. Nueva Fecha
             </label>
-            <div className="flex justify-center border rounded-2xl p-2 bg-neutral-50 dark:bg-slate-800/50">
+            <div className="flex justify-center border rounded-2xl p-2 bg-bg-secondary dark:bg-bg-secondary/50">
               <DatePicker 
                 selected={selectedDate} 
                 onSelect={setSelectedDate}
@@ -118,7 +118,7 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
             {selectedDate ? (
                isLoadingSlots ? (
                  <div className="grid grid-cols-2 gap-2">
-                   {[...Array(6)].map((_, i) => <div key={i} className="h-10 bg-neutral-100 dark:bg-slate-800 animate-pulse rounded-xl" />)}
+                    {[...Array(6)].map((_, i) => <div key={i} className="h-10 bg-bg-secondary dark:bg-bg-secondary animate-pulse rounded-xl" />)}
                  </div>
                ) : (
                  <TimePicker 
@@ -147,7 +147,7 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-slate-800 rounded-2xl">
+          <div className="flex items-center justify-between p-4 bg-bg-secondary dark:bg-bg-secondary rounded-2xl">
             <div className="flex items-center gap-3">
               <Bell className="w-5 h-5 text-primary" />
               <div>

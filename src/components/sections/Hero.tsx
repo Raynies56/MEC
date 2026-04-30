@@ -75,8 +75,8 @@ export function Hero() {
       {/* ── Background gradient mesh ── */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-light)] via-[var(--background)] to-[var(--background)] dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute top-[20%] left-[5%] w-[400px] h-[400px] bg-[var(--accent)]/[0.08] rounded-full blur-[100px]" />
-        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-[var(--primary)]/[0.06] rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] left-[5%] w-[400px] h-[400px] bg-[var(--accent)]/[0.04] rounded-full" />
+        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-[var(--primary)]/[0.03] rounded-full" />
       </div>
 
       {/* ── Subtle grid pattern ── */}
@@ -182,7 +182,7 @@ export function Hero() {
                 
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--neutral-950)]/50 via-transparent to-transparent" />
                 
-                <div className="absolute bottom-5 left-5 right-5 p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-800/50 shadow-lg">
+                <div className="absolute bottom-5 left-5 right-5 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-lg">
                   <p className="font-bold text-[var(--neutral-900)] dark:text-white">{slide.doctorName}</p>
                   <p className="text-sm text-[var(--neutral-600)]">{slide.doctorRole}</p>
                 </div>
@@ -193,7 +193,7 @@ export function Hero() {
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="absolute top-10 -left-10 lg:-left-16 p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl border border-white/20 dark:border-slate-800/50 shadow-xl hidden sm:flex items-center gap-4 z-20"
+                  className="absolute top-10 -left-10 lg:-left-16 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-xl hidden sm:flex items-center gap-4 z-20"
                 >
                   <div className="bg-[var(--success)]/20 p-3 rounded-full">
                     <CheckCircle2 className="h-6 w-6 text-[var(--success)]" />

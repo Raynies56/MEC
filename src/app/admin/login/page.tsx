@@ -47,23 +47,23 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex flex-col items-center justify-center p-4 relative overflow-hidden">
       {/* Background shapes */}
-      <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-primary/5 rounded-full pointer-events-none" />
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md z-10"
       >
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl shadow-primary/5 border border-border p-8 md:p-10">
+        <div className="bg-[var(--bg-card)] rounded-[2.5rem] shadow-2xl shadow-primary/5 border border-[var(--border-color)] p-8 md:p-10">
           {/* Logo & Header */}
           <div className="text-center mb-10">
             <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/20 mx-auto mb-6">
               <Activity className="text-white w-10 h-10" />
             </div>
-            <h1 className="text-2xl font-black text-neutral-900 dark:text-white tracking-tight">Acceso Médico</h1>
+            <h1 className="text-2xl font-black text-[var(--text-primary)] tracking-tight">Acceso Médico</h1>
             <p className="text-neutral-500 font-medium mt-2">Visión Plena — Dra. Valentina Reyes</p>
           </div>
 
@@ -98,6 +98,7 @@ export default function AdminLoginPage() {
                 type="button" 
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-[48px] text-neutral-400 hover:text-primary transition-colors"
+                suppressHydrationWarning
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>

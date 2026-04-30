@@ -22,7 +22,7 @@ export function DatePicker({ selected, onSelect, disabledDates, disabledDaysOfWe
 
   
   return (
-    <div className={cn("p-3 rounded-2xl border border-neutral-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50", className)}>
+    <div className={cn("p-3 rounded-2xl border border-border bg-card", className)}>
       <DayPicker
         mode="single"
         selected={selected}

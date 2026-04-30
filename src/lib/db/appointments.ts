@@ -30,13 +30,13 @@ export async function getAppointments({
     .from("appointments")
     .select("*", { count: "exact" });
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toLocaleDateString('sv'); 
 
   // Aplicar filtros de Tabs
   if (tab === "today") {
     query = query.eq("date", today).neq("status", "cancelled");
   } else if (tab === "upcoming") {
-    query = query.gte("date", today).neq("status", "cancelled");
+    query = query.gt("date", today).neq("status", "cancelled");
   } else if (tab === "cancelled") {
     query = query.eq("status", "cancelled");
   }
@@ -150,7 +150,8 @@ export async function getTodaySchedule(dateStr: string): Promise<TimeSlot[]> {
       available: !appt && !block,
       appointment: appt as Appointment | null,
       blocked: !!block,
-      blockReason: block?.reason || null
+      blockReason: block?.reason || null,
+      blockId: block?.id || null
     });
 
     current = new Date(current.getTime() + duration * 60000);

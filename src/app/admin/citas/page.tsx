@@ -44,6 +44,7 @@ export default function AdminCitasPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
+  const [sidebarDate, setSidebarDate] = useState(format(new Date(), 'yyyy-MM-dd'));
 
   // Modales
   const [selectedAppt, setSelectedAppt] = useState<Appointment | null>(null);
@@ -124,7 +125,7 @@ export default function AdminCitasPage() {
         <div className="flex-1 space-y-8 min-w-0">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
             <div>
-              <h1 className="text-4xl font-black text-neutral-900 dark:text-white tracking-tight">Agenda Médica</h1>
+              <h1 className="text-4xl font-black text-text-primary dark:text-text-primary tracking-tight">Agenda Médica</h1>
               <p className="text-neutral-500 font-bold capitalize mt-1 italic">
                 {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
               </p>
@@ -157,18 +158,18 @@ export default function AdminCitasPage() {
           </div>
 
           {/* Filters Bar */}
-          <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-slate-900 p-5 rounded-[2rem] border border-border shadow-sm">
+          <div className="flex flex-wrap items-center gap-4 bg-bg-card dark:bg-bg-card p-5 rounded-[2rem] border border-border shadow-sm">
             <div className="flex-1 min-w-[240px]">
               <Input 
                 placeholder="Buscar por nombre o teléfono..." 
                 icon={<Search className="w-4 h-4 text-neutral-400" />} 
                 value={search} 
                 onChange={(e) => setSearch(e.target.value)} 
-                className="rounded-xl border-none bg-neutral-50 dark:bg-slate-800"
+                className="rounded-xl border-none bg-bg-secondary dark:bg-bg-secondary"
               />
             </div>
             <select 
-              className="h-11 px-4 bg-neutral-50 dark:bg-slate-800 border-none rounded-xl text-[10px] font-black uppercase tracking-widest outline-none ring-primary/20 focus:ring-2"
+              className="h-11 px-4 bg-bg-secondary dark:bg-bg-secondary border-none rounded-xl text-[10px] font-black uppercase tracking-widest outline-none ring-primary/20 focus:ring-2"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -192,6 +193,7 @@ export default function AdminCitasPage() {
             <AppointmentTable 
               appointments={appointments} 
               isLoading={loading} 
+              activeTab={activeTab}
               onConfirm={handleConfirm}
               onView={(a) => { setSelectedAppt(a); setIsDetailOpen(true); }}
               onReschedule={(a) => { setSelectedAppt(a); setIsRescheduleOpen(true); }}
@@ -210,8 +212,8 @@ export default function AdminCitasPage() {
                   onClick={() => setPage(i + 1)}
                   className={`w-10 h-10 rounded-xl font-bold transition-all border ${
                     page === i + 1 
-                      ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
-                      : 'bg-white dark:bg-slate-900 text-neutral-500 hover:border-primary/50'
+                      ? 'bg-[var(--primary)] border-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20' 
+                      : 'bg-[var(--bg-card)] dark:bg-[var(--bg-card)] text-[var(--text-muted)] hover:border-[var(--primary)]/50'
                   }`}
                 >
                   {i + 1}
@@ -224,7 +226,8 @@ export default function AdminCitasPage() {
         {/* Sidebar — 30% */}
         <div className="lg:w-80 shrink-0">
           <DaySchedulePanel 
-            selectedDate={format(new Date(), 'yyyy-MM-dd')}
+            selectedDate={sidebarDate}
+            onDateChange={setSidebarDate}
             refreshKey={refreshKey}
             onAppointmentClick={(a) => { setSelectedAppt(a); setIsDetailOpen(true); }}
             onRefresh={triggerRefresh}

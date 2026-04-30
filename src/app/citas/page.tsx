@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AppointmentsPage() {
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-slate-950 pt-32 pb-20">
+    <div className="min-h-screen bg-[var(--bg-primary)] pt-32 pb-20">
       
       {/* Background decoration */}
       <div className="absolute top-0 inset-x-0 h-96 bg-primary/80 dark:bg-slate-900 z-0 relative overflow-hidden flex items-center justify-center">

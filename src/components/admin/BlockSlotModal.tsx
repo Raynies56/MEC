@@ -14,13 +14,21 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  initialTime?: string;
 }
 
-export function BlockSlotModal({ date, isOpen, onClose, onSuccess }: Props) {
+export function BlockSlotModal({ date, isOpen, onClose, onSuccess, initialTime }: Props) {
   const [time, setTime] = useState("");
   const [reason, setReason] = useState("");
   const [isFullDay, setIsFullDay] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  React.useEffect(() => {
+    if (initialTime) {
+      setTime(initialTime);
+      setIsFullDay(false);
+    }
+  }, [initialTime, isOpen]);
 
   const handleBlock = async () => {
     if (!isFullDay && !time) return toast.error("Indica una hora");
@@ -51,22 +59,22 @@ export function BlockSlotModal({ date, isOpen, onClose, onSuccess }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Bloquear Horario" size="sm">
       <div className="space-y-6 py-4">
-        <div className="flex p-1 bg-neutral-100 dark:bg-slate-800 rounded-xl">
+        <div className="flex p-1 bg-bg-secondary dark:bg-bg-secondary rounded-xl">
           <button 
             onClick={() => setIsFullDay(false)}
-            className={`flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${!isFullDay ? 'bg-white shadow-sm' : 'text-neutral-400'}`}
+            className={`flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${!isFullDay ? 'bg-bg-card shadow-sm dark:text-text-primary' : 'text-neutral-400'}`}
           >
             Hora específica
           </button>
           <button 
             onClick={() => setIsFullDay(true)}
-            className={`flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${isFullDay ? 'bg-white shadow-sm' : 'text-neutral-400'}`}
+            className={`flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg transition-all ${isFullDay ? 'bg-bg-card shadow-sm dark:text-text-primary' : 'text-neutral-400'}`}
           >
             Todo el día
           </button>
         </div>
 
-        {!isFullDay && (
+        {!isFullDay && !initialTime && (
           <div>
             <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-2 block">Hora (HH:mm)</label>
             <div className="relative">
@@ -78,6 +86,15 @@ export function BlockSlotModal({ date, isOpen, onClose, onSuccess }: Props) {
               />
               <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-300" />
             </div>
+          </div>
+        )}
+
+        {initialTime && !isFullDay && (
+          <div className="p-4 bg-bg-secondary dark:bg-bg-secondary rounded-2xl border border-border">
+             <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-1">Hora seleccionada</p>
+             <p className="text-sm font-bold text-text-primary dark:text-text-primary flex items-center gap-2">
+                <Clock className="w-4 h-4 text-primary" /> {initialTime}
+             </p>
           </div>
         )}
 

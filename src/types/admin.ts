@@ -44,6 +44,7 @@ export interface TimeSlot {
   appointment: Appointment | null;
   blocked: boolean;
   blockReason: string | null;
+  blockId?: string;       // ID del bloqueo para poder eliminarlo
 }
 
 export interface AppointmentsResponse {

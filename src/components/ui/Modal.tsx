@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,7 +16,12 @@ interface ModalProps {
 }
 
 export function Modal({ isOpen, onClose, title, children, className, size = "md" }: ModalProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   const sizes = {
     sm: "max-w-md",
@@ -41,51 +47,58 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
     };
   }, [isOpen, onClose]);
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === overlayRef.current) onClose();
-  };
+  if (!mounted) return null;
 
-  return (
-    <AnimatePresence>
+  const modalContent = (
+    <AnimatePresence mode="wait">
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+          {/* Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            ref={overlayRef}
-            onClick={handleOverlayClick}
-            className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm"
+            onClick={onClose}
+            className="fixed inset-0 bg-neutral-900/60 dark:bg-neutral-950/80 backdrop-blur-[2px]"
           />
+          
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
             transition={{ 
-              duration: isOpen ? 0.25 : 0.2, 
-              ease: isOpen ? "easeOut" : "easeIn" 
+              type: "spring",
+              damping: 25,
+              stiffness: 300
             }}
             className={cn(
-              "relative w-full rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900 z-10 overflow-y-auto max-h-[90vh]",
+              "relative w-full rounded-3xl bg-[var(--bg-card)] shadow-2xl z-[10000] flex flex-col max-h-[90vh] border border-[var(--border-color)]",
               sizes[size],
               className
             )}
             role="dialog"
             aria-modal="true"
-            aria-labelledby={title ? "modal-title" : undefined}
           >
-            <div className="flex items-center justify-between mb-4">
-              {title && <h2 id="modal-title" className="text-xl font-bold">{title}</h2>}
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-[var(--border-color)] shrink-0">
+              {title && (
+                <h2 className="text-xl font-black text-[var(--text-primary)] tracking-tight">
+                  {title}
+                </h2>
+              )}
               <button
                 onClick={onClose}
-                className="rounded-full p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-slate-800 transition-colors ml-auto"
+                className="rounded-xl p-2 text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)] transition-all ml-auto"
                 aria-label="Cerrar modal"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="mt-2 text-neutral-600 dark:text-neutral-300">
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6 scroll-smooth custom-scrollbar">
               {children}
             </div>
           </motion.div>
@@ -93,5 +106,7 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
       )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }
 

@@ -96,7 +96,7 @@ export function ManualAppointmentModal({ isOpen, onClose, onSuccess }: Props) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Registrar Cita Manual" size="lg">
+    <Modal isOpen={isOpen} onClose={onClose} title="Registrar Cita Manual" size="xl">
       <form onSubmit={handleSubmit} className="space-y-6 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
@@ -126,7 +126,7 @@ export function ManualAppointmentModal({ isOpen, onClose, onSuccess }: Props) {
             <div>
               <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-2 block">Motivo *</label>
               <select 
-                className="w-full h-12 px-4 rounded-xl border border-border bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-primary/20 text-sm font-medium"
+                className="w-full h-12 px-4 rounded-xl border border-border bg-bg-primary dark:bg-bg-secondary outline-none focus:ring-2 focus:ring-primary/20 text-sm font-medium"
                 value={formData.reason}
                 onChange={e => setFormData({ ...formData, reason: e.target.value as AppointmentReason })}
               >
@@ -136,14 +136,16 @@ export function ManualAppointmentModal({ isOpen, onClose, onSuccess }: Props) {
           </div>
 
           <div className="space-y-4">
-            <h4 className="text-[10px] uppercase font-black text-primary tracking-widest flex items-center gap-2">
+            <h4 className="text-[10px] uppercase font-black text-[var(--primary)] tracking-widest flex items-center gap-2">
               <Calendar className="w-3 h-3" /> Fecha y Hora
             </h4>
-            <div className="flex justify-center border rounded-2xl p-2 bg-neutral-50 dark:bg-slate-800/50">
-              <DatePicker 
-                selected={formData.date} 
-                onSelect={d => setFormData({ ...formData, date: d, time: "" })}
-              />
+            <div className="bg-[var(--bg-secondary)] dark:bg-[var(--bg-secondary)]/50 border border-[var(--border-color)] rounded-2xl p-4 flex justify-center items-center">
+              <div className="min-w-fit">
+                <DatePicker 
+                  selected={formData.date} 
+                  onSelect={d => setFormData({ ...formData, date: d, time: "" })}
+                />
+              </div>
             </div>
             {formData.date && (
               <div className="animate-in fade-in slide-in-from-top-2">

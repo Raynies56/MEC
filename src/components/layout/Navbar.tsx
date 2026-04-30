@@ -65,7 +65,7 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-out",
           isScrolled
-            ? "bg-[var(--background)]/85 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.06)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] py-3"
+            ? "bg-[var(--background)] shadow-[0_1px_3px_rgba(0,0,0,0.06)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.3)] py-3"
             : "bg-transparent py-5"
         )}
       >
@@ -161,7 +161,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/40 md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
               aria-hidden="true"
             />

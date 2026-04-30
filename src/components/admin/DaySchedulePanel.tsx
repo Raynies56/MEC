@@ -15,15 +15,17 @@ import { toast } from "react-hot-toast";
 
 interface Props {
   selectedDate: string;
+  onDateChange: (date: string) => void;
   onAppointmentClick: (apt: Appointment) => void;
   onRefresh: () => void;
   refreshKey?: number;
 }
 
-export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, refreshKey }: Props) {
+export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClick, onRefresh, refreshKey }: Props) {
   const [slots, setSlots] = useState<TimeSlot[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showBlockModal, setShowBlockModal] = useState(false);
+  const [selectedTimeForBlock, setSelectedTimeForBlock] = useState<string | undefined>();
 
   const fetchSchedule = async () => {
     setIsLoading(true);
@@ -42,17 +44,51 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
     fetchSchedule();
   }, [selectedDate, refreshKey]);
 
+  const handlePrevDay = () => {
+    const d = new Date(selectedDate + 'T00:00:00');
+    d.setDate(d.getDate() - 1);
+    onDateChange(format(d, 'yyyy-MM-dd'));
+  };
+
+  const handleNextDay = () => {
+    const d = new Date(selectedDate + 'T00:00:00');
+    d.setDate(d.getDate() + 1);
+    onDateChange(format(d, 'yyyy-MM-dd'));
+  };
+
+  const handleUnblock = async (id: string) => {
+    try {
+      const res = await fetch(`/api/admin/blocked-slots/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        toast.success("Horario desbloqueado");
+        onRefresh();
+      }
+    } catch {
+      toast.error("Error al desbloquear");
+    }
+  };
+
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-border flex flex-col h-full shadow-sm sticky top-24 max-h-[calc(100vh-8rem)]">
+    <div className="bg-bg-card dark:bg-bg-card rounded-[2.5rem] border border-border flex flex-col h-full shadow-sm sticky top-24 max-h-[calc(100vh-8rem)]">
       {/* Header */}
-      <div className="p-6 border-b border-border bg-neutral-50/50 dark:bg-slate-800/50">
+      <div className="p-6 border-b border-border bg-bg-secondary dark:bg-bg-secondary/50">
         <div className="flex items-center justify-between mb-2">
            <h3 className="text-xs font-black uppercase tracking-widest text-neutral-400 flex items-center gap-2">
              <Activity className="w-3 h-3 text-primary" /> Agenda del Día
            </h3>
            <div className="flex gap-1">
-             <button className="p-1 hover:bg-white dark:hover:bg-slate-700 rounded-md transition-all"><ChevronLeft className="w-4 h-4 text-neutral-400" /></button>
-             <button className="p-1 hover:bg-white dark:hover:bg-slate-700 rounded-md transition-all"><ChevronRight className="w-4 h-4 text-neutral-400" /></button>
+             <button 
+              onClick={handlePrevDay}
+              className="p-1 hover:bg-bg-primary dark:hover:bg-slate-700 rounded-md transition-all"
+             >
+               <ChevronLeft className="w-4 h-4 text-neutral-400" />
+             </button>
+             <button 
+              onClick={handleNextDay}
+              className="p-1 hover:bg-bg-primary dark:hover:bg-slate-700 rounded-md transition-all"
+             >
+               <ChevronRight className="w-4 h-4 text-neutral-400" />
+             </button>
            </div>
         </div>
         <p className="text-sm font-bold text-neutral-900 dark:text-white capitalize">
@@ -85,8 +121,8 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
                   isAppt 
                     ? 'bg-primary/5 border-primary/20 cursor-pointer hover:bg-primary/10 hover:translate-x-1 shadow-sm shadow-primary/5' 
                     : isBlocked 
-                      ? 'bg-neutral-50 border-neutral-100 dark:bg-slate-800/50 dark:border-slate-700 opacity-60' 
-                      : 'bg-transparent border-dashed border-neutral-200 dark:border-slate-800 hover:border-primary/30'
+                      ? 'bg-bg-secondary border-border dark:bg-bg-secondary/50 dark:border-border opacity-60' 
+                      : 'bg-transparent border-dashed border-border dark:border-border hover:border-primary/30'
                 }`}
               >
                 <div className="flex flex-col items-center justify-center w-12 border-r border-border/50 pr-4 shrink-0">
@@ -104,16 +140,29 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
                       </p>
                     </div>
                   ) : isBlocked ? (
-                    <div className="flex items-center gap-2 text-neutral-400 italic">
-                      <Lock className="w-3 h-3" />
-                      <span className="text-[10px] font-bold truncate">{slot.blockReason || "Reservado"}</span>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 text-neutral-400 italic min-w-0">
+                        <Lock className="w-3 h-3" />
+                        <span className="text-[10px] font-bold truncate">{slot.blockReason || "Reservado"}</span>
+                      </div>
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); if(slot.blockId) handleUnblock(slot.blockId); }}
+                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-rose-50 dark:bg-rose-900/20 text-rose-500 hover:bg-rose-500 hover:text-white transition-all scale-75 group-hover:scale-100"
+                        title="Desbloquear"
+                      >
+                        <Plus className="w-3.5 h-3.5 rotate-45" />
+                      </button>
                     </div>
                   ) : (
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] text-neutral-300 font-bold italic uppercase tracking-widest">Disponible</span>
                       <button 
-                        onClick={(e) => { e.stopPropagation(); setShowBlockModal(true); }}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-neutral-100 hover:bg-primary hover:text-white text-neutral-400 transition-all scale-75 group-hover:scale-100"
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          setSelectedTimeForBlock(slot.time);
+                          setShowBlockModal(true); 
+                        }}
+                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-bg-secondary dark:bg-slate-800 hover:bg-primary hover:text-white text-neutral-400 transition-all scale-75 group-hover:scale-100"
                       >
                         <Lock className="w-3.5 h-3.5" />
                       </button>
@@ -134,11 +183,11 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
       </div>
 
       {/* Footer Actions */}
-      <div className="p-6 border-t border-border bg-neutral-50/30">
+      <div className="p-6 border-t border-border bg-bg-secondary/30">
         <Button 
           variant="outline" 
           className="w-full rounded-xl text-[10px] h-10 font-black uppercase tracking-widest border-dashed hover:border-solid transition-all"
-          onClick={() => setShowBlockModal(true)}
+          onClick={() => { setSelectedTimeForBlock(undefined); setShowBlockModal(true); }}
         >
           <Lock className="w-3 h-3 mr-2" /> Bloqueo Manual
         </Button>
@@ -146,8 +195,9 @@ export function DaySchedulePanel({ selectedDate, onAppointmentClick, onRefresh, 
 
       <BlockSlotModal 
         isOpen={showBlockModal} 
-        onClose={() => setShowBlockModal(false)}
+        onClose={() => { setShowBlockModal(false); setSelectedTimeForBlock(undefined); }}
         date={selectedDate}
+        initialTime={selectedTimeForBlock}
         onSuccess={onRefresh}
       />
     </div>

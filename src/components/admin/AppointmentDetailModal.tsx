@@ -57,8 +57,8 @@ export function AppointmentDetailModal({ appointment, isOpen, onClose, onResched
             <h4 className="text-[10px] uppercase font-black text-primary tracking-widest mb-4 flex items-center gap-2">
               <User className="w-3 h-3" /> Información del Paciente
             </h4>
-            <div className="bg-neutral-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-border">
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white capitalize">{appointment.patient_name}</h3>
+            <div className="bg-bg-secondary dark:bg-bg-secondary/50 p-5 rounded-2xl border border-border">
+              <h3 className="text-xl font-bold text-text-primary capitalize">{appointment.patient_name}</h3>
               <p className="text-sm text-neutral-500 mt-1">{appointment.is_first_visit ? "Primera visita con la Dra. Valentina" : "Paciente recurrente"}</p>
               
               <div className="mt-4 space-y-3">
@@ -77,8 +77,8 @@ export function AppointmentDetailModal({ appointment, isOpen, onClose, onResched
               <FileText className="w-3 h-3" /> Motivo y Notas del Paciente
             </h4>
             <div className="p-5 rounded-2xl border border-border">
-              <p className="text-sm font-bold text-neutral-700 dark:text-neutral-300">{appointment.reason}</p>
-              <div className="mt-3 p-3 bg-neutral-50 dark:bg-slate-800 rounded-xl text-xs text-neutral-500 italic">
+              <p className="text-sm font-bold text-text-primary dark:text-text-secondary">{appointment.reason}</p>
+              <div className="mt-3 p-3 bg-bg-secondary dark:bg-bg-secondary rounded-xl text-xs text-neutral-500 italic">
                 {appointment.notes || "El paciente no dejó notas adicionales."}
               </div>
             </div>
@@ -101,7 +101,7 @@ export function AppointmentDetailModal({ appointment, isOpen, onClose, onResched
                 <p className="text-sm font-bold">{appointment.time.substring(0, 5)}</p>
               </div>
             </div>
-            <div className="mt-4 flex items-center justify-between p-4 bg-neutral-50 dark:bg-slate-800 rounded-2xl border border-border">
+            <div className="mt-4 flex items-center justify-between p-4 bg-bg-secondary dark:bg-bg-secondary rounded-2xl border border-border">
               <span className="text-xs font-bold text-neutral-500">Estado Actual</span>
               <StatusBadge status={appointment.status} />
             </div>

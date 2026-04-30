@@ -21,7 +21,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const isLoginPage = pathname === "/admin/login";
 
   return (
-    <div className="bg-neutral-50 dark:bg-slate-950 min-h-screen">
+    <div className="bg-[var(--bg-primary)] min-h-screen">
       <ToastProvider />
       {session.isLoggedIn && !isLoginPage && (
         <AdminNavbar adminName={session.name} />

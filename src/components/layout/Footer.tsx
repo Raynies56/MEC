@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Servicios", href: "/servicios" },
   { label: "Agendar Cita", href: "/citas" },
   { label: "Blog", href: "/blog" },
+  { label: "Acceso Médico", href: "/admin/login" },
 ];
 
 const SERVICE_LINKS = [

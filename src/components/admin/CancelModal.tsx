@@ -81,7 +81,7 @@ export function CancelModal({ appointment, isOpen, onClose, onSuccess }: Props) 
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-slate-800 rounded-2xl">
+        <div className="flex items-center justify-between p-4 bg-bg-secondary dark:bg-bg-secondary rounded-2xl">
           <div className="flex items-center gap-3">
             <Bell className="w-5 h-5 text-primary" />
             <span className="text-sm font-bold">Enviar email de cancelación al paciente</span>

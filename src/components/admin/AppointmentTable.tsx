@@ -18,17 +18,102 @@ interface Props {
   onReschedule: (apt: Appointment) => void;
   onCancel: (apt: Appointment) => void;
   onConfirm: (apt: Appointment) => void;
+  activeTab?: string;
 }
 
-export function AppointmentTable({ appointments, isLoading, onView, onReschedule, onCancel, onConfirm }: Props) {
+export function AppointmentTable({ appointments, isLoading, onView, onReschedule, onCancel, onConfirm, activeTab }: Props) {
   if (isLoading) return <LoadingSkeleton variant="table" rows={10} />;
 
+  // Agrupar citas por fecha si estamos en la pestaña "Próximas"
+  const groupedAppointments: { [key: string]: Appointment[] } = {};
+  if (activeTab === 'upcoming') {
+    appointments.forEach(apt => {
+      if (!groupedAppointments[apt.date]) groupedAppointments[apt.date] = [];
+      groupedAppointments[apt.date].push(apt);
+    });
+  }
+
+  const renderRow = (apt: Appointment, index: number) => (
+    <motion.tr 
+      key={apt.id} 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.2, delay: index * 0.05 }}
+      className="group hover:bg-bg-secondary dark:hover:bg-bg-secondary/50 transition-colors"
+    >
+      <td className="px-6 py-5">
+        <div className="flex flex-col">
+          <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
+          <div className="flex gap-2 mt-1">
+            <span className="text-xs text-neutral-400 flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
+          </div>
+        </div>
+      </td>
+      <td className="px-6 py-5">
+        <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-300">{apt.reason}</span>
+        {apt.is_first_visit && (
+          <span className="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-black uppercase rounded-md">Nueva</span>
+        )}
+      </td>
+      <td className="px-6 py-5">
+        <div className="flex flex-col">
+          <span className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+            {format(new Date(apt.date + 'T00:00:00'), "d 'de' MMM", { locale: es })}
+          </span>
+          <span className="text-xs text-neutral-400">{apt.time.substring(0, 5)}</span>
+        </div>
+      </td>
+      <td className="px-6 py-5">
+        <StatusBadge status={apt.status} />
+      </td>
+      <td className="px-6 py-5">
+        <div className="flex items-center justify-end gap-2">
+          {apt.status === "pending" && (
+            <button 
+              onClick={() => onConfirm(apt)}
+              className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-600 hover:text-white transition-all shadow-sm"
+              title="Confirmar"
+            >
+              <Check className="w-4 h-4" />
+            </button>
+          )}
+          <button 
+            onClick={() => onView(apt)}
+            className="p-2.5 rounded-xl bg-bg-secondary text-neutral-600 hover:bg-neutral-600 hover:text-white transition-all shadow-sm dark:bg-bg-secondary dark:text-neutral-400"
+            title="Ver Detalles"
+          >
+            <Eye className="w-4 h-4" />
+          </button>
+          {apt.status !== "cancelled" && (
+            <>
+              <button 
+                onClick={() => onReschedule(apt)}
+                className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                title="Reagendar"
+              >
+                <Calendar className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => onCancel(apt)}
+                className="p-2.5 rounded-xl bg-rose-50 dark:bg-rose-900/20 text-rose-600 dark:text-rose-400 hover:bg-rose-600 hover:text-white transition-all shadow-sm"
+                title="Cancelar"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </>
+          )}
+        </div>
+      </td>
+    </motion.tr>
+  );
+
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
+    <div className="bg-bg-card dark:bg-bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-neutral-50/50 dark:bg-slate-800/50 border-b border-border">
+            <tr className="bg-bg-secondary dark:bg-bg-secondary/50 border-b border-border">
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Paciente</th>
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Motivo</th>
               <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Fecha y Hora</th>
@@ -38,80 +123,20 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
           </thead>
           <tbody className="divide-y divide-border/50">
             <AnimatePresence>
-            {appointments.map((apt, index) => (
-              <motion.tr 
-                key={apt.id} 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2, delay: index * 0.05 }}
-                className="group hover:bg-neutral-50/50 dark:hover:bg-slate-800/50 transition-colors"
-              >
-                <td className="px-6 py-5">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
-                    <div className="flex gap-2 mt-1">
-                      <span className="text-xs text-neutral-400 flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-6 py-5">
-                  <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-300">{apt.reason}</span>
-                  {apt.is_first_visit && (
-                    <span className="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-black uppercase rounded-md">Nueva</span>
-                  )}
-                </td>
-                <td className="px-6 py-5">
-                  <div className="flex flex-col">
-                    <span className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
-                      {format(new Date(apt.date + 'T00:00:00'), "d 'de' MMM", { locale: es })}
-                    </span>
-                    <span className="text-xs text-neutral-400">{apt.time.substring(0, 5)}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-5">
-                  <StatusBadge status={apt.status} />
-                </td>
-                <td className="px-6 py-5">
-                  <div className="flex items-center justify-end gap-2">
-                    {apt.status === "pending" && (
-                      <button 
-                        onClick={() => onConfirm(apt)}
-                        className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all shadow-sm"
-                        title="Confirmar"
-                      >
-                        <Check className="w-4 h-4" />
-                      </button>
-                    )}
-                    <button 
-                      onClick={() => onView(apt)}
-                      className="p-2.5 rounded-xl bg-neutral-100 text-neutral-600 hover:bg-neutral-600 hover:text-white transition-all shadow-sm dark:bg-slate-800 dark:text-neutral-400"
-                      title="Ver Detalles"
-                    >
-                      <Eye className="w-4 h-4" />
-                    </button>
-                    {apt.status !== "cancelled" && (
-                      <>
-                        <button 
-                          onClick={() => onReschedule(apt)}
-                          className="p-2.5 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-                          title="Reagendar"
-                        >
-                          <Calendar className="w-4 h-4" />
-                        </button>
-                        <button 
-                          onClick={() => onCancel(apt)}
-                          className="p-2.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all shadow-sm"
-                          title="Cancelar"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </td>
-                </motion.tr>
-            ))}
+            {activeTab === 'upcoming' ? (
+              Object.entries(groupedAppointments).map(([date, appts]) => (
+                <React.Fragment key={date}>
+                  <tr className="bg-bg-secondary dark:bg-bg-secondary/30">
+                    <td colSpan={5} className="px-6 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+                      {format(new Date(date + 'T00:00:00'), "EEEE, d 'de' MMMM", { locale: es })}
+                    </td>
+                  </tr>
+                  {appts.map((apt, idx) => renderRow(apt, idx))}
+                </React.Fragment>
+              ))
+            ) : (
+              appointments.map((apt, index) => renderRow(apt, index))
+            )}
             </AnimatePresence>
           </tbody>
         </table>
