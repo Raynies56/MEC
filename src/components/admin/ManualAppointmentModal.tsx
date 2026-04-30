@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { TimePicker } from "@/components/ui/TimePicker";
+import { Select } from "@/components/ui/Select";
 import { Textarea } from "@/components/ui/Textarea";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
@@ -125,13 +126,11 @@ export function ManualAppointmentModal({ isOpen, onClose, onSuccess }: Props) {
             </div>
             <div>
               <label className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-2 block">Motivo *</label>
-              <select 
-                className="w-full h-12 px-4 rounded-xl border border-border bg-bg-primary dark:bg-bg-secondary outline-none focus:ring-2 focus:ring-primary/20 text-sm font-medium"
+              <Select
                 value={formData.reason}
-                onChange={e => setFormData({ ...formData, reason: e.target.value as AppointmentReason })}
-              >
-                {REASONS.map(r => <option key={r} value={r}>{r}</option>)}
-              </select>
+                onChange={(val) => setFormData({ ...formData, reason: val as AppointmentReason })}
+                options={REASONS.map(r => ({ label: r, value: r }))}
+              />
             </div>
           </div>
 

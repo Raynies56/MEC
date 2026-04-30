@@ -5,7 +5,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { 
   Plus, Search, Download, Trash2, 
-  ChevronLeft, ChevronRight, Activity 
+  ChevronLeft, ChevronRight, Activity,
+  FilterX, RotateCcw
 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
@@ -14,6 +15,7 @@ import { useStats } from "@/hooks/useStats";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { motion } from "framer-motion";
 import { StatsBar } from "@/components/admin/StatsBar";
 import { AppointmentTable } from "@/components/admin/AppointmentTable";
@@ -23,6 +25,7 @@ import { AppointmentDetailModal } from "@/components/admin/AppointmentDetailModa
 import { RescheduleModal } from "@/components/admin/RescheduleModal";
 import { CancelModal } from "@/components/admin/CancelModal";
 import { ManualAppointmentModal } from "@/components/admin/ManualAppointmentModal";
+import { DeleteConfirmModal } from "@/components/admin/DeleteConfirmModal";
 
 import { Appointment, AppointmentStatus } from "@/types/admin";
 
@@ -44,6 +47,7 @@ export default function AdminCitasPage() {
   
   // Filtros
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
   const [sidebarDate, setSidebarDate] = useState(format(new Date(), 'yyyy-MM-dd'));
@@ -54,9 +58,22 @@ export default function AdminCitasPage() {
   const [isRescheduleOpen, setIsRescheduleOpen] = useState(false);
   const [isCancelOpen, setIsCancelOpen] = useState(false);
   const [isManualOpen, setIsManualOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isBulkDeleteOpen, setIsBulkDeleteOpen] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Hook de estadísticas
   const stats = useStats(allAppointments);
+
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+      setPage(1); // Reset page on search
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const fetchAppointments = useCallback(async () => {
     setLoading(true);
@@ -65,8 +82,8 @@ export default function AdminCitasPage() {
         tab: activeTab, 
         page: page.toString(), 
         limit: '10', 
-        search, 
-        status: statusFilter 
+        search: debouncedSearch, 
+        status: statusFilter
       });
       const res = await fetch(`/api/admin/appointments?${params.toString()}`);
       if (!res.ok) throw new Error();
@@ -78,7 +95,7 @@ export default function AdminCitasPage() {
     } finally {
       setLoading(false);
     }
-  }, [activeTab, page, search, statusFilter]);
+  }, [activeTab, page, debouncedSearch, statusFilter]);
 
   const fetchAllForStats = useCallback(async () => {
     try {
@@ -116,10 +133,56 @@ export default function AdminCitasPage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!selectedAppt) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/appointments/${selectedAppt.id}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        toast.success("Cita eliminada permanentemente");
+        setIsDeleteOpen(false);
+        triggerRefresh();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      toast.error("Error al eliminar la cita");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/admin/appointments`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedIds })
+      });
+      if (res.ok) {
+        toast.success(`${selectedIds.length} citas eliminadas`);
+        setSelectedIds([]);
+        setIsBulkDeleteOpen(false);
+        triggerRefresh();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      toast.error("Error al eliminar las citas");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   const handleExportCSV = () => {
     const headers = "Paciente,Telefono,Email,Motivo,Fecha,Hora,Estado\n";
-    const rows = appointments.map(a => 
-      `${a.patient_name},${a.patient_phone},${a.patient_email},${a.reason},${a.date},${a.time},${a.status}`
+    // Usamos allAppointments para exportar todo lo cargado, no solo la página actual
+    const rows = allAppointments.map(a => 
+      `"${a.patient_name}","${a.patient_phone}","${a.patient_email}","${a.reason}","${a.date}","${a.time}","${a.status}"`
     ).join("\n");
     const blob = new Blob([headers + rows], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -187,20 +250,39 @@ export default function AdminCitasPage() {
                 className="rounded-xl border-none bg-bg-secondary dark:bg-bg-secondary"
               />
             </div>
-            <select 
-              className="h-11 px-4 bg-bg-secondary dark:bg-bg-secondary border-none rounded-xl text-[10px] font-black uppercase tracking-widest outline-none ring-primary/20 focus:ring-2 text-[var(--text-primary)]"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              <option value="">Status: Todos</option>
-              <option value="pending">Pendientes</option>
-              <option value="confirmed">Confirmadas</option>
-              <option value="rescheduled">Reagendadas</option>
-            </select>
+            <div className="w-[200px]">
+              <Select
+                value={statusFilter}
+                onChange={setStatusFilter}
+                options={[
+                  { label: "Status: Todos", value: "" },
+                  { label: "Pendientes", value: "pending" },
+                  { label: "Confirmadas", value: "confirmed" },
+                  { label: "Reagendadas", value: "rescheduled" },
+                  { label: "Canceladas", value: "cancelled" },
+                ]}
+              />
+            </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" onClick={() => { setSearch(""); setStatusFilter(""); setPage(1); }} className="h-11 rounded-xl px-4">
-                <Trash2 className="w-4 h-4" />
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => { setSearch(""); setStatusFilter(""); setPage(1); }} 
+                className="h-11 rounded-xl px-4 text-neutral-500 hover:text-primary transition-colors"
+                title="Limpiar filtros"
+              >
+                <FilterX className="w-4 h-4" />
               </Button>
+              {selectedIds.length > 0 && (
+                <Button 
+                  variant="accent" 
+                  size="sm" 
+                  onClick={() => setIsBulkDeleteOpen(true)} 
+                  className="h-11 rounded-xl px-4 font-bold text-xs bg-red-600 hover:bg-red-700 border-none"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" /> ELIMINAR ({selectedIds.length})
+                </Button>
+              )}
               <Button variant="outline" size="sm" onClick={handleExportCSV} className="h-11 rounded-xl px-4 font-bold text-xs">
                 <Download className="w-4 h-4 mr-2" /> EXPORTAR
               </Button>
@@ -217,6 +299,12 @@ export default function AdminCitasPage() {
               onView={(a) => { setSelectedAppt(a); setIsDetailOpen(true); }}
               onReschedule={(a) => { setSelectedAppt(a); setIsRescheduleOpen(true); }}
               onCancel={(a) => { setSelectedAppt(a); setIsCancelOpen(true); }}
+              onDelete={(a) => { setSelectedAppt(a); setIsDeleteOpen(true); }}
+              selectedIds={selectedIds}
+              onToggleSelection={(id) => setSelectedIds(prev => 
+                prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+              )}
+              onSelectAll={(ids) => setSelectedIds(ids)}
             />
           ) : (
             <EmptyState tab={activeTab} hasFilters={!!(search || statusFilter)} onClearFilters={() => { setSearch(""); setStatusFilter(""); }} />
@@ -283,6 +371,24 @@ export default function AdminCitasPage() {
         isOpen={isManualOpen} 
         onClose={() => setIsManualOpen(false)} 
         onSuccess={triggerRefresh} 
+      />
+
+      <DeleteConfirmModal 
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={handleDelete}
+        title="Eliminar Cita"
+        message="¿Estás seguro? Esta acción eliminará la cita de forma permanente y no se puede deshacer."
+        isLoading={isDeleting}
+      />
+
+      <DeleteConfirmModal 
+        isOpen={isBulkDeleteOpen}
+        onClose={() => setIsBulkDeleteOpen(false)}
+        onConfirm={handleBulkDelete}
+        title="Eliminar Selección"
+        message={`¿Estás seguro de eliminar ${selectedIds.length} citas permanentemente? Esta acción no se puede deshacer.`}
+        isLoading={isDeleting}
       />
     </motion.div>
   );

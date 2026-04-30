@@ -39,9 +39,7 @@ export async function middleware(request: NextRequest) {
 
   // Security Headers
   const isDev = process.env.NODE_ENV === "development";
-  const scriptSrc = isDev
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google.com https://*.googleapis.com https://*.googletagmanager.com"
-    : "script-src 'self' 'unsafe-inline' https://*.google.com https://*.googleapis.com https://*.googletagmanager.com";
+  const scriptSrc = `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} https://*.google.com https://*.googleapis.com https://*.googletagmanager.com`;
 
   res.headers.set(
     "Content-Security-Policy",
