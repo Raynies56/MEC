@@ -5,7 +5,7 @@
  * en tu base de datos de Supabase.
  */
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { createClient } = require("@supabase/supabase-js");
 const dotenv = require("dotenv");
 
