@@ -126,7 +126,7 @@ export default function AdminCitasPage() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
             <div>
               <h1 className="text-4xl font-black text-text-primary dark:text-text-primary tracking-tight">Agenda Médica</h1>
-              <p className="text-neutral-500 font-bold capitalize mt-1 italic">
+              <p className="text-neutral-500 dark:text-gray-400 font-bold capitalize mt-1 italic">
                 {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
               </p>
             </div>
@@ -146,7 +146,7 @@ export default function AdminCitasPage() {
                 key={tab.id}
                 onClick={() => { setActiveTab(tab.id); setPage(1); }}
                 className={`pb-4 text-sm font-black uppercase tracking-widest transition-all relative whitespace-nowrap ${
-                  activeTab === tab.id ? 'text-primary' : 'text-neutral-400 hover:text-neutral-600'
+                  activeTab === tab.id ? 'text-primary' : 'text-neutral-400 dark:text-gray-500 hover:text-neutral-600 dark:hover:text-gray-300'
                 }`}
               >
                 {tab.label}
@@ -169,7 +169,7 @@ export default function AdminCitasPage() {
               />
             </div>
             <select 
-              className="h-11 px-4 bg-bg-secondary dark:bg-bg-secondary border-none rounded-xl text-[10px] font-black uppercase tracking-widest outline-none ring-primary/20 focus:ring-2"
+              className="h-11 px-4 bg-bg-secondary dark:bg-bg-secondary border-none rounded-xl text-[10px] font-black uppercase tracking-widest outline-none ring-primary/20 focus:ring-2 text-[var(--text-primary)]"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >

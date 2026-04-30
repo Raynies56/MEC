@@ -28,7 +28,7 @@ export default function Footer() {
   return (
     <footer
       role="contentinfo"
-      className="bg-[var(--neutral-950)] dark:bg-[var(--neutral-100)] text-[var(--neutral-400)] pt-16 pb-8"
+      className="bg-[var(--neutral-950)] dark:bg-slate-950 text-[var(--neutral-400)] dark:text-gray-400 pt-16 pb-8"
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14">
@@ -38,15 +38,15 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-2.5 group" aria-label="Visión Plena — Inicio">
               <Eye className="h-7 w-7 text-[var(--primary-light)]" strokeWidth={2} />
               <div className="flex flex-col">
-                <span className="font-bold text-lg leading-tight text-white dark:text-[var(--neutral-900)]">
+                <span className="font-bold text-lg leading-tight text-white">
                   Visión Plena
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--neutral-500)] font-medium">
+                <span className="text-[10px] uppercase tracking-[0.15em] text-gray-400 font-medium">
                   Dra. Valentina Reyes
                 </span>
               </div>
             </Link>
-            <p className="text-sm text-[var(--neutral-500)] leading-relaxed max-w-xs">
+            <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
               Tu salud visual en manos expertas. Especialista en oftalmología clínica y quirúrgica con más de 12 años de experiencia.
             </p>
             <div className="flex gap-3 pt-1">
@@ -58,7 +58,7 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
-                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-[var(--neutral-400)] hover:text-white transition-colors duration-200"
+                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors duration-200"
                   aria-label={`Síguenos en ${label}`}
                 >
                   <Icon className="h-4.5 w-4.5" />
@@ -69,7 +69,7 @@ export default function Footer() {
 
           {/* ── Navigation column ── */}
           <div>
-            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+            <h4 className="text-white font-bold mb-5 text-sm tracking-wide">
               Navegación
             </h4>
             <ul className="space-y-3">
@@ -77,7 +77,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[var(--neutral-500)] hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors duration-200"
+                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -88,7 +88,7 @@ export default function Footer() {
 
           {/* ── Services column ── */}
           <div>
-            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+            <h4 className="text-white font-bold mb-5 text-sm tracking-wide">
               Servicios
             </h4>
             <ul className="space-y-3">
@@ -96,7 +96,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[var(--neutral-500)] hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors duration-200"
+                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -107,26 +107,26 @@ export default function Footer() {
 
           {/* ── Contact column ── */}
           <div>
-            <h4 className="text-white dark:text-[var(--neutral-900)] font-bold mb-5 text-sm tracking-wide">
+            <h4 className="text-white font-bold mb-5 text-sm tracking-wide">
               Contacto
             </h4>
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3">
                 <MapPin className="h-4.5 w-4.5 text-[var(--primary)] mt-0.5 shrink-0" />
-                <span className="text-[var(--neutral-500)]">
+                <span className="text-gray-400">
                   Av. Abraham Lincoln 452,<br />
                   Torre Médica Naco, Suite 8B
                 </span>
               </li>
               <li className="flex gap-3 items-center">
                 <Phone className="h-4.5 w-4.5 text-[var(--primary)] shrink-0" />
-                <a href="tel:+18095550192" className="text-[var(--neutral-500)] hover:text-white transition-colors">
+                <a href="tel:+18095550192" className="text-gray-400 hover:text-white transition-colors">
                   +1 (809) 555-0192
                 </a>
               </li>
               <li className="flex gap-3 items-center">
                 <Mail className="h-4.5 w-4.5 text-[var(--primary)] shrink-0" />
-                <a href="mailto:contacto@visionplena.com.do" className="text-[var(--neutral-500)] hover:text-white transition-colors">
+                <a href="mailto:contacto@visionplena.com.do" className="text-gray-400 hover:text-white transition-colors">
                   contacto@visionplena.com.do
                 </a>
               </li>
@@ -135,13 +135,13 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="border-t border-white/10 dark:border-[var(--border)] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--neutral-500)]">
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
           <p>© {new Date().getFullYear()} Centro Oftalmológico Visión Plena. Todos los derechos reservados.</p>
           <div className="flex flex-wrap justify-center gap-6">
-            <Link href="/privacidad" className="hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors">
+            <Link href="/privacidad" className="hover:text-white transition-colors">
               Privacidad
             </Link>
-            <Link href="/terminos" className="hover:text-white dark:hover:text-[var(--neutral-900)] transition-colors">
+            <Link href="/terminos" className="hover:text-white transition-colors">
               Términos
             </Link>
 

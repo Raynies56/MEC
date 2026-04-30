@@ -58,7 +58,7 @@ export function AdminNavbar({ adminName }: Props) {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold text-neutral-900 dark:text-white leading-none">{adminName}</span>
-              <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest mt-1">Especialista</span>
+              <span className="text-[10px] text-neutral-400 dark:text-gray-500 font-bold uppercase tracking-widest mt-1">Especialista</span>
             </div>
           </div>
           

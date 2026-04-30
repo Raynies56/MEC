@@ -49,7 +49,7 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[var(--neutral-500)] text-base sm:text-lg leading-relaxed"
+            className="text-[var(--neutral-500)] dark:text-gray-400 text-base sm:text-lg leading-relaxed"
           >
             Atención integral para todas las edades con diagnósticos precisos mediante tecnología de vanguardia.
           </motion.p>
@@ -69,13 +69,18 @@ export function Services() {
               <motion.div key={service.id} variants={cardVariants}>
                 <Card hoverEffect className="h-full flex flex-col group">
                   <CardHeader>
-                    <div className="h-32 w-full rounded-xl overflow-hidden mb-4 relative shadow-sm border border-border/50">
-                      <Image src="/service.png" alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="h-48 w-full rounded-xl overflow-hidden mb-4 relative shadow-sm border border-border/50">
+                      <Image 
+                        src={service.image} 
+                        alt={service.title} 
+                        fill 
+                        className="object-cover group-hover:scale-110 transition-transform duration-700" 
+                      />
                     </div>
                     <CardTitle className="text-lg">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow flex flex-col justify-between">
-                    <p className="text-[var(--neutral-500)] text-sm md:text-base leading-relaxed mb-6 flex-grow">
+                    <p className="text-[var(--neutral-500)] dark:text-gray-400 text-sm md:text-base leading-relaxed mb-6 flex-grow">
                       {service.description}
                     </p>
                     <Link

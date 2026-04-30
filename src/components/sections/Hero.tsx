@@ -39,6 +39,22 @@ const SLIDES = [
     ],
     doctorName: "Equipamiento Médico",
     doctorRole: "Precisión y seguridad en cada diagnóstico"
+  },
+  {
+    id: 3,
+    badge: "Salud Ocular Integral",
+    title: "Cuidado Completo para Toda la Familia",
+    description: "Desde exámenes de rutina hasta tratamientos complejos. Brindamos una atención humana y detallada para proteger lo más valioso: tu visión.",
+    primaryCTA: { text: "Agendar Evaluación", href: "/citas" },
+    secondaryCTA: { text: "Preguntas Frecuentes", href: "/#faqs" },
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop",
+    imageAlt: "Consulta oftalmológica integral",
+    stats: [
+      { text: "Atención Personalizada" },
+      { text: "Todas las Edades" }
+    ],
+    doctorName: "Consulta Integral",
+    doctorRole: "Dedicación y calidez en cada visita"
   }
 ];
 
@@ -184,16 +200,16 @@ export function Hero() {
                 
                 <div className="absolute bottom-5 left-5 right-5 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-lg">
                   <p className="font-bold text-[var(--neutral-900)] dark:text-white">{slide.doctorName}</p>
-                  <p className="text-sm text-[var(--neutral-600)]">{slide.doctorRole}</p>
+                  <p className="text-sm text-[var(--neutral-600)] dark:text-gray-400">{slide.doctorRole}</p>
                 </div>
               </div>
               
               {/* Floating badge for first slide */}
               {current === 0 && (
                 <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="absolute top-10 -left-10 lg:-left-16 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-xl hidden sm:flex items-center gap-4 z-20"
+                  className="absolute top-10 -right-10 lg:-right-16 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-xl hidden sm:flex items-center gap-4 z-20"
                 >
                   <div className="bg-[var(--success)]/20 p-3 rounded-full">
                     <CheckCircle2 className="h-6 w-6 text-[var(--success)]" />

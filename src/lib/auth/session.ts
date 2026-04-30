@@ -4,13 +4,19 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData } from "@/types/admin";
 
+const SESSION_PASSWORD = process.env.SESSION_PASSWORD;
+
+if (!SESSION_PASSWORD || SESSION_PASSWORD.length < 32) {
+  throw new Error("❌ SEGURIDAD CRÍTICA: SESSION_PASSWORD debe tener al menos 32 caracteres.");
+}
+
 export const sessionOptions = {
-  password: process.env.SESSION_SECRET || "complex_password_at_least_32_characters_long",
+  password: SESSION_PASSWORD,
   cookieName: "admin_session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
-    sameSite: "lax" as const,
+    sameSite: "strict" as const,
     maxAge: 60 * 60 * 8, // 8 horas
   },
 };

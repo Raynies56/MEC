@@ -30,6 +30,7 @@ export const appointmentSchema = z.object({
     .string()
     .trim()
     .max(500, "El motivo es demasiado largo")
+    .regex(/^[^<>]*$/, "El motivo no puede contener etiquetas HTML")
     .optional()
     .or(z.literal("")),
 
@@ -39,6 +40,7 @@ export const appointmentSchema = z.object({
     .string()
     .trim()
     .max(1000, "Las notas son demasiado largas")
+    .regex(/^[^<>]*$/, "Las notas no pueden contener etiquetas HTML")
     .optional()
     .or(z.literal("")),
 
@@ -68,6 +70,7 @@ export const blockedSlotSchema = z.object({
     .string()
     .trim()
     .max(500)
+    .regex(/^[^<>]*$/, "El motivo no puede contener etiquetas HTML")
     .optional()
     .or(z.literal("")),
 });

@@ -38,7 +38,7 @@ export function Stats() {
                   {stat.suffix}
                 </span>
               </div>
-              <span className="text-xs sm:text-sm md:text-base font-medium text-[var(--neutral-500)] mt-2">
+              <span className="text-xs sm:text-sm md:text-base font-medium text-[var(--neutral-500)] dark:text-gray-400 mt-2">
                 {stat.label}
               </span>
             </motion.div>

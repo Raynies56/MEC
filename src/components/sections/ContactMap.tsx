@@ -19,7 +19,7 @@ export function ContactMap() {
           <h2 id="contact-heading" className="text-3xl md:text-4xl font-bold mb-4">
             Visítanos y Contáctanos
           </h2>
-          <p className="text-[var(--neutral-500)] text-lg">
+          <p className="text-[var(--neutral-500)] dark:text-gray-400 text-lg">
             Estamos ubicados en el corazón de Santo Domingo para brindarte la mejor atención.
           </p>
         </div>
@@ -41,7 +41,7 @@ export function ContactMap() {
                 </div>
                 <div>
                   <h3 className="font-bold text-base mb-1">Dirección</h3>
-                  <p className="text-[var(--neutral-500)] text-sm leading-relaxed">
+                  <p className="text-[var(--neutral-500)] dark:text-gray-400 text-sm leading-relaxed">
                     Av. Abraham Lincoln 452,<br />
                     Torre Médica Naco, Suite 8B<br />
                     Santo Domingo, República Dominicana
@@ -57,10 +57,10 @@ export function ContactMap() {
                 </div>
                 <div>
                   <h3 className="font-bold text-base mb-1">Teléfono y WhatsApp</h3>
-                  <a href="tel:+18095550192" className="text-[var(--neutral-500)] text-sm hover:text-[var(--primary)] transition-colors">
+                  <a href="tel:+18095550192" className="text-[var(--neutral-500)] dark:text-gray-400 text-sm hover:text-[var(--primary)] transition-colors">
                     +1 (809) 555-0192
                   </a>
-                  <p className="text-xs text-[var(--neutral-400)] mt-1">Urgencias disponibles 24/7 vía WhatsApp.</p>
+                  <p className="text-xs text-[var(--neutral-400)] dark:text-gray-500 mt-1">Urgencias disponibles 24/7 vía WhatsApp.</p>
                 </div>
               </CardContent>
             </Card>
@@ -73,7 +73,7 @@ export function ContactMap() {
                   </div>
                   <div>
                     <h3 className="font-bold text-sm mb-1">Horario</h3>
-                    <p className="text-xs text-[var(--neutral-500)] leading-relaxed">
+                    <p className="text-xs text-[var(--neutral-500)] dark:text-gray-400 leading-relaxed">
                       Lun – Vie: 8:00 AM – 6:00 PM<br />
                       Sábados: 8:00 AM – 1:00 PM
                     </p>
@@ -90,7 +90,7 @@ export function ContactMap() {
                     <h3 className="font-bold text-sm mb-1">Correo Electrónico</h3>
                     <a
                       href="mailto:contacto@visionplena.com.do"
-                      className="text-xs text-[var(--neutral-500)] hover:text-[var(--primary)] transition-colors"
+                      className="text-xs text-[var(--neutral-500)] dark:text-gray-400 hover:text-[var(--primary)] transition-colors"
                     >
                       contacto@visionplena.com.do
                     </a>

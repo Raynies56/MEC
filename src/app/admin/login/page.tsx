@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
               <Activity className="text-white w-10 h-10" />
             </div>
             <h1 className="text-2xl font-black text-[var(--text-primary)] tracking-tight">Acceso Médico</h1>
-            <p className="text-neutral-500 font-medium mt-2">Visión Plena — Dra. Valentina Reyes</p>
+            <p className="text-neutral-500 dark:text-gray-400 font-medium mt-2">Visión Plena — Dra. Valentina Reyes</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
                 disabled={isLoading}
                 required
               />
-              <Mail className="absolute left-4 top-[48px] w-5 h-5 text-neutral-300" />
+              <Mail className="absolute left-4 top-[48px] w-5 h-5 text-neutral-300 dark:text-gray-500" />
             </div>
 
             <div className="relative">
@@ -93,11 +93,11 @@ export default function AdminLoginPage() {
                 disabled={isLoading}
                 required
               />
-              <Lock className="absolute left-4 top-[48px] w-5 h-5 text-neutral-300" />
+              <Lock className="absolute left-4 top-[48px] w-5 h-5 text-neutral-300 dark:text-gray-500" />
               <button 
                 type="button" 
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-[48px] text-neutral-400 hover:text-primary transition-colors"
+                className="absolute right-4 top-[48px] text-neutral-400 dark:text-gray-500 hover:text-primary transition-colors"
                 suppressHydrationWarning
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
           <div className="mt-10 text-center">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-neutral-400 hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500 hover:text-primary transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Volver al sitio público

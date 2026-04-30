@@ -46,7 +46,7 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
         <div className="flex flex-col">
           <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
           <div className="flex gap-2 mt-1">
-            <span className="text-xs text-neutral-400 flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
+            <span className="text-xs text-neutral-400 dark:text-gray-500 flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
           </div>
         </div>
       </td>
@@ -61,7 +61,7 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
           <span className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
             {format(new Date(apt.date + 'T00:00:00'), "d 'de' MMM", { locale: es })}
           </span>
-          <span className="text-xs text-neutral-400">{apt.time.substring(0, 5)}</span>
+          <span className="text-xs text-neutral-400 dark:text-gray-500">{apt.time.substring(0, 5)}</span>
         </div>
       </td>
       <td className="px-6 py-5">
@@ -114,11 +114,11 @@ export function AppointmentTable({ appointments, isLoading, onView, onReschedule
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-bg-secondary dark:bg-bg-secondary/50 border-b border-border">
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Paciente</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Motivo</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Fecha y Hora</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400">Estado</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 text-right">Acciones</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Paciente</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Motivo</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Fecha y Hora</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Estado</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500 text-right">Acciones</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">

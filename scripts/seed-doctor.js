@@ -22,8 +22,13 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function seedDoctor() {
-  const email = "doctora@visionplena.com.do";
-  const password = "Administrador2026"; // Contraseña segura para la simulación
+  const email = process.env.SEED_ADMIN_EMAIL || "doctora@visionplena.com.do";
+  const password = process.env.SEED_ADMIN_PASSWORD;
+
+  if (!password) {
+    console.error("❌ ERROR: Falta la variable SEED_ADMIN_PASSWORD en .env.local");
+    process.exit(1);
+  }
   const name = "Dra. Valentina Reyes";
 
   console.log("--- Iniciando Creación de Usuario ---");

@@ -72,14 +72,14 @@ export default function HomePage() {
         aria-label="Seguros médicos aceptados"
       >
         <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center font-medium text-[var(--neutral-400)] uppercase tracking-[0.2em] text-xs mb-10">
+          <p className="text-center font-medium text-[var(--neutral-400)] dark:text-gray-500 uppercase tracking-[0.2em] text-xs mb-10">
             Seguros Médicos Aceptados
           </p>
-          <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             {INSURANCES.map((insurer) => (
               <div
                 key={insurer}
-                className="text-xl md:text-2xl font-bold font-accent text-[var(--neutral-400)] select-none"
+                className="glass px-6 py-3 rounded-xl text-sm md:text-base font-bold text-[var(--neutral-600)] dark:text-[var(--neutral-300)] shadow-sm hover:shadow-md hover:border-[var(--primary)]/30 hover:-translate-y-1 transition-all duration-300 cursor-default"
               >
                 {insurer}
               </div>

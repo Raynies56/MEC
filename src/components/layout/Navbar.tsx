@@ -76,10 +76,10 @@ export default function Navbar() {
               <Eye className="h-6 w-6 text-[var(--primary)]" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg leading-tight text-[var(--neutral-900)]">
+              <span className="font-bold text-lg leading-tight text-[var(--neutral-900)] dark:text-white">
                 Visión Plena
               </span>
-              <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--neutral-500)] font-medium">
+              <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--neutral-500)] dark:text-gray-400 font-medium">
                 Dra. Valentina Reyes
               </span>
             </div>
@@ -98,7 +98,7 @@ export default function Navbar() {
                         "relative px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200",
                         isActive
                           ? "text-[var(--primary)] bg-[var(--primary)]/[0.08]"
-                          : "text-[var(--neutral-600)] hover:text-[var(--neutral-900)] hover:bg-[var(--neutral-100)]/80"
+                          : "text-[var(--neutral-600)] dark:text-gray-300 hover:text-[var(--neutral-900)] dark:hover:text-white hover:bg-[var(--neutral-100)]/80 dark:hover:bg-white/5"
                       )}
                       aria-current={isActive ? "page" : undefined}
                     >
@@ -113,7 +113,7 @@ export default function Navbar() {
               {mounted && (
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="rounded-lg p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] hover:text-[var(--neutral-900)] transition-colors duration-200"
+                  className="rounded-lg p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] dark:text-gray-400 hover:bg-[var(--neutral-100)] dark:hover:bg-white/5 hover:text-[var(--neutral-900)] dark:hover:text-white transition-colors duration-200"
                   aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
                 >
                   {theme === "dark" ? <Sun className="h-[18px] w-[18px]" /> : <Moon className="h-[18px] w-[18px]" />}
@@ -132,7 +132,7 @@ export default function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-lg p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] hover:bg-[var(--neutral-100)] transition-colors"
+                className="rounded-lg p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--neutral-500)] dark:text-gray-400 hover:bg-[var(--neutral-100)] dark:hover:bg-white/5 transition-colors"
                 aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
               >
                 {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
@@ -140,7 +140,7 @@ export default function Navbar() {
             )}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="text-[var(--neutral-900)] p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-[var(--neutral-100)] transition-colors"
+              className="text-[var(--neutral-900)] dark:text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg hover:bg-[var(--neutral-100)] dark:hover:bg-white/5 transition-colors"
               aria-label="Abrir menú de navegación"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-nav"
@@ -182,10 +182,10 @@ export default function Navbar() {
               <div className="p-5 flex justify-end">
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-[var(--neutral-100)] hover:bg-[var(--neutral-200)] transition-colors"
+                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-[var(--neutral-100)] dark:bg-slate-800 hover:bg-[var(--neutral-200)] dark:hover:bg-slate-700 transition-colors"
                   aria-label="Cerrar menú"
                 >
-                  <X className="h-5 w-5 text-[var(--neutral-600)]" />
+                  <X className="h-5 w-5 text-[var(--neutral-600)] dark:text-gray-300" />
                 </button>
               </div>
 
@@ -204,7 +204,7 @@ export default function Navbar() {
                         "block text-2xl font-bold py-3 px-4 rounded-xl transition-colors duration-200",
                         pathname === link.href
                           ? "text-[var(--primary)] bg-[var(--primary)]/[0.08]"
-                          : "text-[var(--neutral-900)] hover:bg-[var(--neutral-100)]"
+                          : "text-[var(--neutral-900)] dark:text-white hover:bg-[var(--neutral-100)] dark:hover:bg-white/5"
                       )}
                     >
                       {link.label}

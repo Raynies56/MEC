@@ -6,36 +6,42 @@ export const SERVICES = [
     title: "Consulta General Oftalmológica",
     description: "Evaluación integral de tu salud visual y ocular para prevenir y tratar afecciones.",
     icon: Stethoscope,
+    image: "/services/consulta-general.png",
   },
   {
     id: "examen-visual",
     title: "Examen Visual Completo",
     description: "Medición exhaustiva de la agudeza visual, presión intraocular y fondo de ojo.",
     icon: Eye,
+    image: "/services/examen-visual.png",
   },
   {
     id: "lentes",
     title: "Evaluación y Receta de Lentes",
     description: "Diagnóstico de miopía, astigmatismo, hipermetropía y presbicia con prescripción exacta.",
     icon: Glasses,
+    image: "/services/lentes.png",
   },
   {
     id: "glaucoma",
     title: "Diagnóstico de Glaucoma",
     description: "Detección temprana y control de la presión intraocular para prevenir pérdida de visión.",
     icon: Activity,
+    image: "/services/glaucoma.png",
   },
   {
     id: "cataratas",
     title: "Revisión de Cataratas",
     description: "Evaluación del cristalino y planificación quirúrgica con tecnología avanzada.",
     icon: Microscope,
+    image: "/services/cataratas.png",
   },
   {
     id: "urgencias",
     title: "Urgencias Oculares",
     description: "Atención prioritaria para infecciones, traumatismos oculares y dolor súbito.",
     icon: ShieldAlert,
+    image: "/services/urgencias.png",
   }
 ];
 

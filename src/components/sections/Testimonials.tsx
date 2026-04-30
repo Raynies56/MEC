@@ -132,13 +132,13 @@ export function Testimonials() {
                 </div>
 
                 {/* Quote text */}
-                <blockquote className="text-lg md:text-xl font-medium text-[var(--neutral-800)] dark:text-[var(--neutral-200)] mb-8 leading-relaxed italic max-w-2xl mx-auto">
+                <blockquote className="text-lg md:text-xl font-medium text-[var(--neutral-800)] dark:text-gray-200 mb-8 leading-relaxed italic max-w-2xl mx-auto">
                   &ldquo;{TESTIMONIALS[current].text}&rdquo;
                 </blockquote>
 
                 {/* Author */}
                 <div>
-                  <p className="font-bold text-lg text-[var(--neutral-900)]">
+                  <p className="font-bold text-lg text-[var(--neutral-900)] dark:text-white">
                     {TESTIMONIALS[current].name}
                   </p>
                   <p className="text-[var(--primary)] text-sm font-medium mt-0.5">

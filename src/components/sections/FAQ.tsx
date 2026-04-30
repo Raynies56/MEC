@@ -58,7 +58,7 @@ export function FAQ() {
                   <span
                     className={cn(
                       "font-semibold text-base pr-8 transition-colors duration-200",
-                      isOpen ? "text-[var(--primary)]" : "text-[var(--neutral-800)]"
+                      isOpen ? "text-[var(--primary)]" : "text-[var(--neutral-800)] dark:text-gray-200"
                     )}
                   >
                     {faq.question}
@@ -68,7 +68,7 @@ export function FAQ() {
                       "flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-300",
                       isOpen
                         ? "bg-[var(--primary)] text-white rotate-0"
-                        : "bg-[var(--neutral-100)] text-[var(--neutral-400)]"
+                        : "bg-[var(--neutral-100)] dark:bg-slate-700 text-[var(--neutral-400)] dark:text-gray-300"
                     )}
                     aria-hidden="true"
                   >
@@ -87,7 +87,7 @@ export function FAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                     >
-                      <div className="px-6 pb-6 text-[var(--neutral-500)] leading-relaxed text-[0.95rem]">
+                      <div className="px-6 pb-6 text-[var(--neutral-500)] dark:text-gray-400 leading-relaxed text-[0.95rem]">
                         {faq.answer}
                       </div>
                     </motion.div>
