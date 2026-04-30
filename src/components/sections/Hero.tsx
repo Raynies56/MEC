@@ -1,13 +1,5 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button";
-import { CheckCircle2, Star } from "lucide-react";
-
-"use client";
-
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
