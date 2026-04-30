@@ -86,20 +86,20 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
     <Modal isOpen={isOpen} onClose={onClose} title="Reagendar Cita" size="lg">
       <div className="space-y-6 py-4">
         {/* Resumen Actual */}
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800">
-          <p className="text-[10px] uppercase font-black text-blue-500 tracking-widest mb-1">Cita Actual</p>
+        <div className="p-4 bg-[var(--bg-secondary)] dark:bg-slate-800 rounded-2xl border border-border">
+          <p className="text-[10px] uppercase font-black text-primary tracking-widest mb-1">Cita Actual</p>
           <div className="flex justify-between items-center">
-            <span className="font-bold text-neutral-800 dark:text-blue-100">{appointment.patient_name}</span>
+            <span className="font-bold text-text-primary dark:text-white">{appointment.patient_name}</span>
             <span className="text-sm font-medium text-blue-600 dark:text-blue-300">
                {format(new Date(appointment.date + 'T00:00:00'), "d 'de' MMM", { locale: es })} @ {appointment.time.substring(0, 5)}
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="reagendar-body">
           {/* Col 1: Fecha */}
           <div className="space-y-4">
-            <label className="text-sm font-black uppercase tracking-widest text-neutral-400 flex items-center gap-2">
+            <label className="text-sm font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
               <Calendar className="w-4 h-4" /> 1. Nueva Fecha
             </label>
             <div className="flex justify-center border rounded-2xl p-2 bg-bg-secondary dark:bg-bg-secondary/50">
@@ -112,7 +112,7 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
 
           {/* Col 2: Hora */}
           <div className="space-y-4">
-            <label className="text-sm font-black uppercase tracking-widest text-neutral-400 flex items-center gap-2">
+            <label className="text-sm font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
               <Clock className="w-4 h-4" /> 2. Nueva Hora
             </label>
             {selectedDate ? (
@@ -138,7 +138,7 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
         {/* Motivo y Notificación */}
         <div className="space-y-4 pt-6 border-t">
           <div>
-            <label className="text-sm font-black uppercase tracking-widest text-neutral-400 block mb-2">3. Motivo del cambio (Opcional)</label>
+            <label className="text-sm font-black uppercase tracking-widest text-text-secondary block mb-2">3. Motivo del cambio (Opcional)</label>
             <Textarea 
               placeholder="Ej: Cambio por requerimiento de la doctora..." 
               value={reason} 

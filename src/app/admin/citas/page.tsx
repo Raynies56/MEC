@@ -10,6 +10,7 @@ import {
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { toast } from "react-hot-toast";
+import { useStats } from "@/hooks/useStats";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -35,6 +36,7 @@ const TABS = [
 export default function AdminCitasPage() {
   // Estado de Datos
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [allAppointments, setAllAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
@@ -52,6 +54,9 @@ export default function AdminCitasPage() {
   const [isRescheduleOpen, setIsRescheduleOpen] = useState(false);
   const [isCancelOpen, setIsCancelOpen] = useState(false);
   const [isManualOpen, setIsManualOpen] = useState(false);
+
+  // Hook de estadísticas
+  const stats = useStats(allAppointments);
 
   const fetchAppointments = useCallback(async () => {
     setLoading(true);
@@ -75,9 +80,23 @@ export default function AdminCitasPage() {
     }
   }, [activeTab, page, search, statusFilter]);
 
+  const fetchAllForStats = useCallback(async () => {
+    try {
+      // Pedimos un límite alto para tener datos suficientes para las estadísticas (Hoy, Semana, Mes)
+      const res = await fetch(`/api/admin/appointments?limit=500&tab=all`);
+      if (res.ok) {
+        const data = await res.json();
+        setAllAppointments(data.appointments || []);
+      }
+    } catch (e) {
+      console.error("Error fetching all appointments for stats:", e);
+    }
+  }, []);
+
   useEffect(() => {
     fetchAppointments();
-  }, [fetchAppointments, refreshKey]);
+    fetchAllForStats();
+  }, [fetchAppointments, fetchAllForStats, refreshKey]);
 
   const triggerRefresh = () => setRefreshKey(prev => prev + 1);
 
@@ -117,7 +136,7 @@ export default function AdminCitasPage() {
       transition={{ duration: 0.4 }}
       className="container mx-auto px-6 py-10"
     >
-      <StatsBar />
+      <StatsBar stats={stats} />
 
       <div className="flex flex-col lg:flex-row gap-10">
         

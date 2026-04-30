@@ -52,7 +52,7 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
   const modalContent = (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="modal-overlay p-4 sm:p-6 overflow-hidden">
           {/* Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -74,7 +74,7 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
               stiffness: 300
             }}
             className={cn(
-              "relative w-full rounded-3xl bg-[var(--bg-card)] shadow-2xl z-[10000] flex flex-col max-h-[90vh] border border-[var(--border-color)]",
+              "modal-container w-full rounded-3xl bg-[var(--bg-card)] shadow-2xl z-[10000] flex flex-col border border-[var(--border-color)]",
               sizes[size],
               className
             )}

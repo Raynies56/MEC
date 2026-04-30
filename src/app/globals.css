@@ -371,3 +371,37 @@
 .dark ::-webkit-scrollbar-thumb:hover {
   background: var(--neutral-500);
 }
+/* ═══ Modal Fixes ═══ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-container {
+  position: relative;
+  margin: auto;
+  left: auto !important;
+  transform: none !important;
+  width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.reagendar-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .reagendar-body {
+    grid-template-columns: 1fr;
+  }
+}

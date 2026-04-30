@@ -45,8 +45,8 @@ export function AdminNavbar({ adminName }: Props) {
             <Activity className="text-white w-6 h-6" />
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-lg tracking-tight leading-none text-[var(--text-primary)]">Visión Plena</span>
-            <span className="text-[10px] uppercase font-black tracking-widest text-[var(--primary)]">Panel Médico</span>
+            <span className="font-black text-lg tracking-tight leading-none text-text-primary">Visión Plena</span>
+            <span className="text-[10px] uppercase font-black tracking-widest text-primary">Panel Médico</span>
           </div>
         </Link>
 

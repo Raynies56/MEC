@@ -139,7 +139,7 @@ export function ManualAppointmentModal({ isOpen, onClose, onSuccess }: Props) {
             <h4 className="text-[10px] uppercase font-black text-[var(--primary)] tracking-widest flex items-center gap-2">
               <Calendar className="w-3 h-3" /> Fecha y Hora
             </h4>
-            <div className="bg-[var(--bg-secondary)] dark:bg-[var(--bg-secondary)]/50 border border-[var(--border-color)] rounded-2xl p-4 flex justify-center items-center">
+            <div className="bg-bg-secondary dark:bg-bg-secondary/50 border border-border rounded-2xl p-4 flex justify-center items-center">
               <div className="min-w-fit">
                 <DatePicker 
                   selected={formData.date} 

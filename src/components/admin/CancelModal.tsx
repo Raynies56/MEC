@@ -101,7 +101,7 @@ export function CancelModal({ appointment, isOpen, onClose, onSuccess }: Props) 
             onClick={handleCancel} 
             disabled={reason.length < 10}
             isLoading={isSubmitting}
-            className="rounded-xl px-8 border-rose-200 text-rose-600 hover:bg-rose-600 hover:text-white"
+            className="rounded-xl px-8 border-rose-200 dark:border-rose-900 text-rose-600 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600"
           >
             <XCircle className="w-4 h-4 mr-2" />
             Cancelar esta cita

@@ -138,7 +138,7 @@ export function AppointmentDetailModal({ appointment, isOpen, onClose, onResched
         <Button variant="outline" onClick={onReschedule} className="rounded-xl flex-1 md:flex-none">
           <Calendar className="w-4 h-4 mr-2" /> Reagendar
         </Button>
-        <Button variant="outline" onClick={onCancel} className="rounded-xl flex-1 md:flex-none text-rose-500 hover:bg-rose-50">
+        <Button variant="outline" onClick={onCancel} className="rounded-xl flex-1 md:flex-none text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20">
           <FileText className="w-4 h-4 mr-2" /> Cancelar Cita
         </Button>
         <div className="flex-1" />

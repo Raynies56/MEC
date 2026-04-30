@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import { ConditionalThemeProvider } from "@/components/theme/ConditionalThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFAB from "@/components/layout/WhatsAppFAB";
@@ -101,7 +101,7 @@ export default function RootLayout({
           Saltar al contenido principal
         </a>
 
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ConditionalThemeProvider>
           <JsonLd />
           <Navbar />
           <main className="flex-grow" id="main-content">
@@ -110,7 +110,7 @@ export default function RootLayout({
           <Footer />
           <WhatsAppFAB />
           <ToastContainer />
-        </ThemeProvider>
+        </ConditionalThemeProvider>
       </body>
     </html>
   );
