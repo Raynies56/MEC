@@ -74,7 +74,7 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
               stiffness: 300
             }}
             className={cn(
-              "modal-container w-full rounded-3xl bg-[var(--bg-card)] shadow-2xl z-[10000] flex flex-col border border-[var(--border-color)]",
+              "modal-container w-full rounded-3xl bg-bg-card shadow-2xl z-[10000] flex flex-col border border-border",
               sizes[size],
               className
             )}
@@ -82,15 +82,15 @@ export function Modal({ isOpen, onClose, title, children, className, size = "md"
             aria-modal="true"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-[var(--border-color)] shrink-0">
+            <div className="flex items-center justify-between p-6 border-b border-border shrink-0">
               {title && (
-                <h2 className="text-xl font-black text-[var(--text-primary)] tracking-tight">
+                <h2 className="text-xl font-black text-text tracking-tight">
                   {title}
                 </h2>
               )}
               <button
                 onClick={onClose}
-                className="rounded-xl p-2 text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)] transition-all ml-auto"
+                className="rounded-xl p-2 text-text-soft hover:bg-bg-secondary hover:text-text transition-all ml-auto"
                 aria-label="Cerrar modal"
               >
                 <X className="h-5 w-5" />

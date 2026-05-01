@@ -106,7 +106,7 @@ export function Testimonials() {
 
           {/* ── Testimonial card ── */}
           <div
-            className="relative bg-[var(--primary-light)]/50 dark:bg-[var(--neutral-200)] rounded-[var(--radius-2xl)] p-8 md:p-16 min-h-[320px] flex items-center justify-center"
+            className="relative bg-[var(--bg-secondary)] rounded-[var(--radius-2xl)] p-8 md:p-16 min-h-[320px] flex items-center justify-center"
           >
             <Quote className="absolute top-6 left-6 md:top-8 md:left-8 h-10 w-10 text-[var(--primary)]/10 rotate-180" aria-hidden="true" />
 
@@ -132,13 +132,13 @@ export function Testimonials() {
                 </div>
 
                 {/* Quote text */}
-                <blockquote className="text-lg md:text-xl font-medium text-[var(--neutral-800)] dark:text-gray-200 mb-8 leading-relaxed italic max-w-2xl mx-auto">
+                <blockquote className="text-lg md:text-xl font-medium text-[var(--text)] mb-8 leading-relaxed italic max-w-2xl mx-auto">
                   &ldquo;{TESTIMONIALS[current].text}&rdquo;
                 </blockquote>
 
                 {/* Author */}
                 <div>
-                  <p className="font-bold text-lg text-[var(--neutral-900)] dark:text-white">
+                  <p className="font-bold text-lg text-[var(--text)]">
                     {TESTIMONIALS[current].name}
                   </p>
                   <p className="text-[var(--primary)] text-sm font-medium mt-0.5">

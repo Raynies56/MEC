@@ -52,13 +52,13 @@ export function AdminNavbar({ adminName }: Props) {
 
         {/* Right: User & Logout */}
         <div className="flex items-center gap-6">
-          <div className="hidden md:flex items-center gap-3 pr-6 border-r border-border">
-            <div className="w-10 h-10 rounded-full bg-bg-secondary dark:bg-bg-secondary flex items-center justify-center text-xs font-bold text-primary border border-primary/20">
+          <div className="hidden md:flex items-center gap-3 pr-6 border-r border-[var(--border)]">
+            <div className="w-10 h-10 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-xs font-bold text-[var(--primary)] border border-[var(--primary)]/20">
               {initials}
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold text-neutral-900 dark:text-white leading-none">{adminName}</span>
-              <span className="text-[10px] text-neutral-400 dark:text-gray-500 font-bold uppercase tracking-widest mt-1">Especialista</span>
+              <span className="text-sm font-bold text-[var(--text)] leading-none">{adminName}</span>
+              <span className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest mt-1">Especialista</span>
             </div>
           </div>
           

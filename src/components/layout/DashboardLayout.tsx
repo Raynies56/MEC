@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-slate-950 flex">
+    <div className="min-h-screen bg-bg flex">
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 
@@ -46,7 +46,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-slate-900 border-r border-border z-50 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static",
+          "fixed top-0 left-0 bottom-0 w-64 bg-bg-card border-r border-border z-50 flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static",
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -73,10 +73,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                     isActive 
                       ? "bg-primary/10 text-primary" 
-                      : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-slate-800 dark:hover:text-white"
+                      : "text-text-soft hover:bg-bg-secondary hover:text-text"
                   )}
                 >
-                  <Icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-neutral-400")} />
+                  <Icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-text-muted")} />
                   {item.label}
                 </Link>
               );
@@ -91,7 +91,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
             <div className="flex flex-col overflow-hidden">
               <span className="text-sm font-semibold truncate">{session?.user?.name || "Doctor"}</span>
-              <span className="text-xs text-neutral-500 truncate">{session?.user?.email}</span>
+              <span className="text-xs text-text-soft truncate">{session?.user?.email}</span>
             </div>
           </div>
           <button
@@ -106,8 +106,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-white dark:bg-slate-900 lg:hidden">
-          <button onClick={() => setIsSidebarOpen(true)} className="p-2 -ml-2 text-neutral-600">
+        <header className="h-16 flex items-center justify-between px-6 border-b border-border bg-bg-card lg:hidden">
+          <button onClick={() => setIsSidebarOpen(true)} className="p-2 -ml-2 text-text-soft">
             <Menu className="h-6 w-6" />
           </button>
           <div className="font-bold">Dashboard</div>

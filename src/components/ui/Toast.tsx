@@ -69,14 +69,14 @@ function ToastItem({ toast, onClose }: { toast: ToastOptions; onClose: () => voi
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-      className="pointer-events-auto relative mt-4 flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border bg-white p-6 pr-8 shadow-lg transition-all dark:bg-slate-900"
+      className="pointer-events-auto relative mt-4 flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border border-border bg-bg-card p-6 pr-8 shadow-lg transition-all"
     >
       <div className="flex w-full items-start gap-4">
         <div className="mt-0.5">{icons[toast.type]}</div>
         <div className="flex pb-1 flex-col gap-1">
           <h3 className="text-sm font-semibold">{toast.title}</h3>
           {toast.message && (
-            <p className="text-sm opacity-90 text-neutral-600 dark:text-neutral-400">
+            <p className="text-sm opacity-90 text-text-soft">
               {toast.message}
             </p>
           )}

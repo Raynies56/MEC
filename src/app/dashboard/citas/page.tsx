@@ -123,8 +123,8 @@ export default function DashboardCitas() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-1">Gestión de Citas</h1>
-          <p className="text-neutral-500 font-medium capitalize">
+          <h1 className="text-3xl font-bold text-text mb-1">Gestión de Citas</h1>
+          <p className="text-text-soft font-medium capitalize">
             {format(new Date(), "EEEE, d 'de' MMMM 'de' yyyy", { locale: es })}
           </p>
         </div>
@@ -146,7 +146,7 @@ export default function DashboardCitas() {
                 onClick={() => { setActiveTab(tab.id); setPage(1); }}
                 className={`
                   pb-4 text-sm font-bold transition-all relative
-                  ${activeTab === tab.id ? 'text-primary' : 'text-neutral-400 hover:text-neutral-600'}
+                  ${activeTab === tab.id ? 'text-primary' : 'text-text-muted hover:text-text-soft'}
                 `}
               >
                 {tab.label} {activeTab === tab.id && `(${total})`}
@@ -158,17 +158,17 @@ export default function DashboardCitas() {
           </div>
 
           {/* Filters Bar */}
-          <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-border">
+          <div className="flex flex-wrap items-center gap-4 bg-bg-card p-4 rounded-2xl border border-border">
             <div className="flex-1 min-w-[200px]">
               <Input 
                 placeholder="Nombre o teléfono..." 
-                icon={<Search className="w-4 h-4 text-neutral-400" />}
+                icon={<Search className="w-4 h-4 text-text-muted" />}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <select 
-              className="h-11 px-4 bg-neutral-50 dark:bg-slate-800 border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none"
+              className="h-11 px-4 bg-bg-secondary border-none rounded-xl text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -204,7 +204,7 @@ export default function DashboardCitas() {
                   key={i}
                   onClick={() => setPage(i + 1)}
                   className={`w-10 h-10 rounded-xl font-bold transition-all ${
-                    page === i + 1 ? 'bg-primary text-white' : 'bg-white dark:bg-slate-900 border text-neutral-500 hover:bg-neutral-50'
+                    page === i + 1 ? 'bg-primary text-white' : 'bg-bg-card border border-border text-text-soft hover:bg-bg-secondary'
                   }`}
                 >
                   {i + 1}

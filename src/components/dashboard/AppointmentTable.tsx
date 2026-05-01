@@ -28,7 +28,7 @@ export function AppointmentTable({
     return (
       <div className="space-y-4">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-16 w-full bg-neutral-100 dark:bg-slate-800 animate-pulse rounded-xl" />
+          <div key={i} className="h-16 w-full bg-bg-secondary animate-pulse rounded-xl" />
         ))}
       </div>
     );
@@ -36,11 +36,11 @@ export function AppointmentTable({
 
   if (appointments.length === 0) {
     return (
-      <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-neutral-300 dark:border-slate-700">
-        <div className="bg-neutral-100 dark:bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Calendar className="text-neutral-400" />
+      <div className="text-center py-20 bg-bg-card rounded-3xl border border-dashed border-border">
+        <div className="bg-bg-secondary w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Calendar className="text-text-muted" />
         </div>
-        <p className="text-neutral-500 font-medium">No se encontraron citas con esos filtros</p>
+        <p className="text-text-soft font-medium">No se encontraron citas con esos filtros</p>
       </div>
     );
   }
@@ -56,10 +56,10 @@ export function AppointmentTable({
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-border overflow-hidden shadow-sm">
+    <div className="bg-bg-card rounded-3xl border border-border overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm whitespace-nowrap">
-          <thead className="bg-neutral-50 dark:bg-slate-800/50 border-b border-border text-neutral-500 font-semibold">
+          <thead className="bg-bg-secondary/50 border-b border-border text-text-soft font-semibold">
             <tr>
               <th className="px-6 py-4">Paciente</th>
               <th className="px-6 py-4">Motivo</th>
@@ -71,22 +71,22 @@ export function AppointmentTable({
           </thead>
           <tbody className="divide-y divide-border">
             {appointments.map((appt) => (
-              <tr key={appt.id} className="hover:bg-neutral-50/50 dark:hover:bg-slate-800/30 transition-colors group">
+              <tr key={appt.id} className="hover:bg-bg-secondary/30 transition-colors group">
                 <td className="px-6 py-4">
-                  <div className="font-semibold text-neutral-900 dark:text-white">{appt.patient_name}</div>
-                  <div className="text-xs text-neutral-500 flex items-center gap-1 mt-0.5">
+                  <div className="font-semibold text-text">{appt.patient_name}</div>
+                  <div className="text-xs text-text-soft flex items-center gap-1 mt-0.5">
                     <Phone className="w-3 h-3" />
                     {appt.patient_phone}
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="text-xs font-medium px-2 py-1 bg-neutral-100 dark:bg-slate-800 rounded-md">
+                  <span className="text-xs font-medium px-2 py-1 bg-bg-secondary rounded-md">
                     {appt.reason}
                   </span>
                 </td>
                 <td className="px-6 py-4 font-medium capitalize">
                   {format(new Date(appt.date + 'T00:00:00'), "d 'de' MMM", { locale: es })}
-                  <span className="text-neutral-400 font-normal ml-2">{appt.time.substring(0, 5)}</span>
+                  <span className="text-text-muted font-normal ml-2">{appt.time.substring(0, 5)}</span>
                 </td>
                 <td className="px-6 py-4 text-center">
                   {appt.is_first_visit ? (
@@ -94,7 +94,7 @@ export function AppointmentTable({
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
                   ) : (
-                    <span className="text-neutral-300">X</span>
+                    <span className="text-text-muted opacity-50">X</span>
                   )}
                 </td>
                 <td className="px-6 py-4">
@@ -118,7 +118,7 @@ export function AppointmentTable({
                       onClick={() => onReschedule(appt)}
                       title="Reagendar"
                     >
-                      <Calendar className="w-4 h-4 text-neutral-500" />
+                      <Calendar className="w-4 h-4 text-text-soft" />
                     </Button>
                     {appt.status !== 'cancelled' && (
                       <Button 

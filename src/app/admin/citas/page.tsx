@@ -207,8 +207,8 @@ export default function AdminCitasPage() {
         <div className="flex-1 space-y-8 min-w-0">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
             <div>
-              <h1 className="text-4xl font-black text-text-primary dark:text-text-primary tracking-tight">Agenda Médica</h1>
-              <p className="text-neutral-500 dark:text-gray-400 font-bold capitalize mt-1 italic">
+              <h1 className="text-4xl font-black text-text tracking-tight">Agenda Médica</h1>
+              <p className="text-text-soft font-bold capitalize mt-1 italic">
                 {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function AdminCitasPage() {
                 key={tab.id}
                 onClick={() => { setActiveTab(tab.id); setPage(1); }}
                 className={`pb-4 text-sm font-black uppercase tracking-widest transition-all relative whitespace-nowrap ${
-                  activeTab === tab.id ? 'text-primary' : 'text-neutral-400 dark:text-gray-500 hover:text-neutral-600 dark:hover:text-gray-300'
+                  activeTab === tab.id ? 'text-primary' : 'text-text-muted hover:text-text-soft'
                 }`}
               >
                 {tab.label}
@@ -240,14 +240,14 @@ export default function AdminCitasPage() {
           </div>
 
           {/* Filters Bar */}
-          <div className="flex flex-wrap items-center gap-4 bg-bg-card dark:bg-bg-card p-5 rounded-[2rem] border border-border shadow-sm">
+          <div className="flex flex-wrap items-center gap-4 bg-bg-card p-5 rounded-[2rem] border border-border shadow-sm">
             <div className="flex-1 min-w-[240px]">
               <Input 
                 placeholder="Buscar por nombre o teléfono..." 
-                icon={<Search className="w-4 h-4 text-neutral-400" />} 
+                icon={<Search className="w-4 h-4 text-text-muted" />} 
                 value={search} 
                 onChange={(e) => setSearch(e.target.value)} 
-                className="rounded-xl border-none bg-bg-secondary dark:bg-bg-secondary"
+                className="rounded-xl border-none bg-bg-secondary"
               />
             </div>
             <div className="w-[200px]">
@@ -268,7 +268,7 @@ export default function AdminCitasPage() {
                 variant="outline" 
                 size="sm" 
                 onClick={() => { setSearch(""); setStatusFilter(""); setPage(1); }} 
-                className="h-11 rounded-xl px-4 text-neutral-500 hover:text-primary transition-colors"
+                className="h-11 rounded-xl px-4 text-text-soft hover:text-primary transition-colors"
                 title="Limpiar filtros"
               >
                 <FilterX className="w-4 h-4" />
@@ -319,8 +319,8 @@ export default function AdminCitasPage() {
                   onClick={() => setPage(i + 1)}
                   className={`w-10 h-10 rounded-xl font-bold transition-all border ${
                     page === i + 1 
-                      ? 'bg-[var(--primary)] border-[var(--primary)] text-white shadow-lg shadow-[var(--primary)]/20' 
-                      : 'bg-[var(--bg-card)] dark:bg-[var(--bg-card)] text-[var(--text-muted)] hover:border-[var(--primary)]/50'
+                      ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
+                      : 'bg-bg-card border-border text-text-muted hover:border-primary/50'
                   }`}
                 >
                   {i + 1}

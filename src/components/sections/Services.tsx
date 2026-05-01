@@ -21,7 +21,7 @@ export function Services() {
   return (
     <section
       id="servicios"
-      className="section-padding bg-[var(--background)]"
+      className="section-padding bg-[var(--bg)]"
       aria-labelledby="services-heading"
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,7 +49,7 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-[var(--neutral-500)] dark:text-gray-400 text-base sm:text-lg leading-relaxed"
+            className="text-[var(--text-soft)] text-base sm:text-lg leading-relaxed"
           >
             Atención integral para todas las edades con diagnósticos precisos mediante tecnología de vanguardia.
           </motion.p>
@@ -80,7 +80,7 @@ export function Services() {
                     <CardTitle className="text-lg">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow flex flex-col justify-between">
-                    <p className="text-[var(--neutral-500)] dark:text-gray-400 text-sm md:text-base leading-relaxed mb-6 flex-grow">
+                    <p className="text-[var(--text-soft)] text-sm md:text-base leading-relaxed mb-6 flex-grow">
                       {service.description}
                     </p>
                     <Link

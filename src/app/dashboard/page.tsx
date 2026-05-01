@@ -28,10 +28,10 @@ export default function DashboardOverview() {
             <Card key={i}>
               <CardContent className="p-6 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-neutral-500 mb-1">{stat.name}</p>
+                  <p className="text-sm font-medium text-text-soft mb-1">{stat.name}</p>
                   <p className="text-3xl font-bold">{stat.value}</p>
                 </div>
-                <div className={`p-3 bg-neutral-100 dark:bg-slate-800 rounded-xl ${stat.color}`}>
+                <div className={`p-3 bg-bg-secondary rounded-xl ${stat.color}`}>
                   <Icon className="h-6 w-6" />
                 </div>
               </CardContent>
@@ -51,14 +51,14 @@ export default function DashboardOverview() {
           <CardContent>
             <div className="space-y-4">
               {[1, 2, 3].map((_, i) => (
-                <div key={i} className="flex items-center justify-between p-4 rounded-xl border border-border bg-neutral-50 dark:bg-slate-800/50">
+                <div key={i} className="flex items-center justify-between p-4 rounded-xl border border-border bg-bg-secondary">
                   <div className="flex items-center gap-4">
                     <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">
                       {["MJ", "RC", "AL"][i]}
                     </div>
                     <div>
                       <p className="font-semibold text-sm">{["María Jiménez", "Roberto Castro", "Ana López"][i]}</p>
-                      <p className="text-xs text-neutral-500">Consulta General Oftalmológica</p>
+                      <p className="text-xs text-text-soft">Consulta General Oftalmológica</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -81,10 +81,10 @@ export default function DashboardOverview() {
             <Link href="/dashboard/horarios" className="block">
               <Button variant="outline" className="w-full justify-start h-auto py-4">
                 <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-neutral-500" />
+                  <Clock className="w-5 h-5 text-text-muted" />
                   <div className="text-left">
                     <p className="font-semibold text-sm">Configurar Horarios</p>
-                    <p className="text-xs text-neutral-500 font-normal mt-0.5">Ajusta tu disponibilidad</p>
+                    <p className="text-xs text-text-soft font-normal mt-0.5">Ajusta tu disponibilidad</p>
                   </div>
                 </div>
               </Button>
@@ -92,10 +92,10 @@ export default function DashboardOverview() {
             <Link href="/dashboard/calendario" className="block">
               <Button variant="outline" className="w-full justify-start h-auto py-4">
                 <div className="flex items-center gap-3">
-                  <CalendarCheck className="w-5 h-5 text-neutral-500" />
+                  <CalendarCheck className="w-5 h-5 text-text-muted" />
                   <div className="text-left">
                     <p className="font-semibold text-sm">Ver Calendario Mensual</p>
-                    <p className="text-xs text-neutral-500 font-normal mt-0.5">Planifica tus semanas</p>
+                    <p className="text-xs text-text-soft font-normal mt-0.5">Planifica tus semanas</p>
                   </div>
                 </div>
               </Button>

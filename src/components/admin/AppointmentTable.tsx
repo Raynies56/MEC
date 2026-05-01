@@ -72,24 +72,24 @@ export function AppointmentTable({
       </td>
       <td className="px-6 py-5">
         <div className="flex flex-col">
-          <span className="font-bold text-neutral-900 dark:text-white capitalize">{apt.patient_name}</span>
+          <span className="font-bold text-text capitalize">{apt.patient_name}</span>
           <div className="flex gap-2 mt-1">
-            <span className="text-xs text-neutral-400 dark:text-gray-500 flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
+            <span className="text-xs text-text-muted flex items-center gap-1"><Phone className="w-3 h-3" /> {apt.patient_phone}</span>
           </div>
         </div>
       </td>
       <td className="px-6 py-5">
-        <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-300">{apt.reason}</span>
+        <span className="text-xs font-semibold text-text-soft">{apt.reason}</span>
         {apt.is_first_visit && (
           <span className="ml-2 px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-black uppercase rounded-md">Nueva</span>
         )}
       </td>
       <td className="px-6 py-5">
         <div className="flex flex-col">
-          <span className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+          <span className="text-sm font-bold text-text">
             {format(new Date(apt.date + 'T00:00:00'), "d 'de' MMM", { locale: es })}
           </span>
-          <span className="text-xs text-neutral-400 dark:text-gray-500">{apt.time.substring(0, 5)}</span>
+          <span className="text-xs text-text-muted">{apt.time.substring(0, 5)}</span>
         </div>
       </td>
       <td className="px-6 py-5">
@@ -108,7 +108,7 @@ export function AppointmentTable({
           )}
           <button 
             onClick={() => onView(apt)}
-            className="p-2.5 rounded-xl bg-bg-secondary text-neutral-600 hover:bg-neutral-600 hover:text-white transition-all shadow-sm dark:bg-bg-secondary dark:text-neutral-400"
+            className="p-2.5 rounded-xl bg-bg-secondary text-text-soft hover:bg-text-soft hover:text-white transition-all shadow-sm"
             title="Ver Detalles"
           >
             <Eye className="w-4 h-4" />
@@ -144,7 +144,7 @@ export function AppointmentTable({
   );
 
   return (
-    <div className="bg-bg-card dark:bg-bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
+    <div className="bg-bg-card rounded-[2.5rem] border border-border shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -157,11 +157,11 @@ export function AppointmentTable({
                   onChange={() => onSelectAll?.(isAllSelected ? [] : appointments.map(a => a.id))}
                 />
               </th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Paciente</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Motivo</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Fecha y Hora</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500">Estado</th>
-              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-neutral-400 dark:text-gray-500 text-right">Acciones</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-text-muted">Paciente</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-text-muted">Motivo</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-text-muted">Fecha y Hora</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-text-muted">Estado</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-text-muted text-right">Acciones</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">

@@ -73,25 +73,25 @@ export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClic
       {/* Header */}
       <div className="p-6 border-b border-border bg-bg-secondary dark:bg-bg-secondary/50">
         <div className="flex items-center justify-between mb-2">
-           <h3 className="text-xs font-black uppercase tracking-widest text-neutral-400 flex items-center gap-2">
+           <h3 className="text-xs font-black uppercase tracking-widest text-text-muted flex items-center gap-2">
              <Activity className="w-3 h-3 text-primary" /> Agenda del Día
            </h3>
            <div className="flex gap-1">
              <button 
               onClick={handlePrevDay}
-              className="p-1 hover:bg-bg-primary dark:hover:bg-slate-700 rounded-md transition-all"
+              className="p-1 hover:bg-bg-secondary rounded-md transition-all"
              >
-               <ChevronLeft className="w-4 h-4 text-neutral-400" />
+               <ChevronLeft className="w-4 h-4 text-text-muted" />
              </button>
              <button 
               onClick={handleNextDay}
-              className="p-1 hover:bg-bg-primary dark:hover:bg-slate-700 rounded-md transition-all"
+              className="p-1 hover:bg-bg-secondary rounded-md transition-all"
              >
-               <ChevronRight className="w-4 h-4 text-neutral-400" />
+               <ChevronRight className="w-4 h-4 text-text-muted" />
              </button>
            </div>
         </div>
-        <p className="text-sm font-bold text-neutral-900 dark:text-white capitalize">
+        <p className="text-sm font-bold text-text capitalize">
           {format(new Date(selectedDate + 'T00:00:00'), "EEEE, d 'de' MMMM", { locale: es })}
         </p>
       </div>
@@ -102,7 +102,7 @@ export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClic
           <LoadingSkeleton variant="slots" count={10} />
         ) : slots.length === 0 ? (
           <div className="py-12 text-center">
-            <p className="text-[10px] uppercase font-black text-neutral-400 tracking-tighter">No hay horarios activos</p>
+            <p className="text-[10px] uppercase font-black text-text-muted tracking-tighter">No hay horarios activos</p>
           </div>
         ) : (
           <AnimatePresence>
@@ -121,18 +121,18 @@ export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClic
                   isAppt 
                     ? 'bg-primary/5 border-primary/20 cursor-pointer hover:bg-primary/10 hover:translate-x-1 shadow-sm shadow-primary/5' 
                     : isBlocked 
-                      ? 'bg-bg-secondary border-border dark:bg-bg-secondary/50 dark:border-border opacity-60' 
-                      : 'bg-transparent border-dashed border-border dark:border-border hover:border-primary/30'
+                      ? 'bg-bg-secondary border-border opacity-60' 
+                      : 'bg-transparent border-dashed border-border hover:border-primary/30'
                 }`}
               >
                 <div className="flex flex-col items-center justify-center w-12 border-r border-border/50 pr-4 shrink-0">
-                  <span className="text-[10px] font-black text-neutral-400">{slot.time}</span>
+                  <span className="text-[10px] font-black text-text-muted">{slot.time}</span>
                 </div>
 
                 <div className="flex-1 min-w-0">
                   {isAppt ? (
                     <div className="animate-in fade-in slide-in-from-left-2 transition-all">
-                      <p className="text-xs font-black text-neutral-900 dark:text-white truncate">
+                      <p className="text-xs font-black text-text truncate">
                         {slot.appointment?.patient_name}
                       </p>
                       <p className="text-[9px] font-black uppercase text-primary tracking-widest mt-0.5 truncate">
@@ -141,7 +141,7 @@ export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClic
                     </div>
                   ) : isBlocked ? (
                     <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2 text-neutral-400 italic min-w-0">
+                      <div className="flex items-center gap-2 text-text-muted italic min-w-0">
                         <Lock className="w-3 h-3" />
                         <span className="text-[10px] font-bold truncate">{slot.blockReason || "Reservado"}</span>
                       </div>
@@ -155,14 +155,14 @@ export function DaySchedulePanel({ selectedDate, onDateChange, onAppointmentClic
                     </div>
                   ) : (
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-neutral-300 font-bold italic uppercase tracking-widest">Disponible</span>
+                      <span className="text-[10px] text-text-muted font-bold italic uppercase tracking-widest">Disponible</span>
                       <button 
                         onClick={(e) => { 
                           e.stopPropagation(); 
                           setSelectedTimeForBlock(slot.time);
                           setShowBlockModal(true); 
                         }}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-bg-secondary dark:bg-slate-800 hover:bg-primary hover:text-white text-neutral-400 transition-all scale-75 group-hover:scale-100"
+                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-bg-secondary hover:bg-primary hover:text-white text-text-muted transition-all scale-75 group-hover:scale-100"
                       >
                         <Lock className="w-3.5 h-3.5" />
                       </button>

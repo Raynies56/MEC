@@ -33,13 +33,13 @@ export function StatsBar({ stats }: StatsBarProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-[var(--bg-card)] p-6 rounded-[2.5rem] border border-[var(--border-color)] flex items-center justify-between shadow-sm hover:shadow-md transition-all group"
+            className="bg-bg-card p-6 rounded-[2.5rem] border border-border flex items-center justify-between shadow-sm hover:shadow-md transition-all group"
           >
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] mb-2 group-hover:text-primary transition-colors">
+              <p className="text-[10px] font-black uppercase tracking-widest text-text-muted mb-2 group-hover:text-primary transition-colors">
                 {card.label}
               </p>
-              <h3 className="text-3xl font-black text-[var(--text-primary)]">
+              <h3 className="text-3xl font-black text-text">
                 {card.value}
               </h3>
             </div>

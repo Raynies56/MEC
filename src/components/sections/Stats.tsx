@@ -17,7 +17,7 @@ export function Stats() {
   return (
     <section
       ref={ref}
-      className="bg-[var(--primary-light)] dark:bg-[var(--neutral-200)] py-14 border-y border-[var(--border)]"
+      className="bg-[var(--bg-secondary)] py-14 border-y border-[var(--border)]"
       aria-label="Estadísticas del centro"
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,7 +38,7 @@ export function Stats() {
                   {stat.suffix}
                 </span>
               </div>
-              <span className="text-xs sm:text-sm md:text-base font-medium text-[var(--neutral-500)] dark:text-gray-400 mt-2">
+              <span className="text-xs sm:text-sm md:text-base font-medium text-[var(--text-soft)] mt-2">
                 {stat.label}
               </span>
             </motion.div>

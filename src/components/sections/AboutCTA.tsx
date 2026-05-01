@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 export function AboutCTA() {
   return (
     <section
-      className="section-padding bg-[var(--neutral-50)] dark:bg-[var(--neutral-200)] border-y border-[var(--border)]"
+      className="section-padding bg-[var(--bg)] border-y border-[var(--border)]"
       aria-labelledby="about-heading"
     >
       <div className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +51,7 @@ export function AboutCTA() {
             <h2 id="about-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               Dra. Valentina Reyes M.
             </h2>
-            <div className="space-y-4 text-[var(--neutral-600)] dark:text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed mb-8">
+            <div className="space-y-4 text-[var(--text-soft)] text-sm sm:text-base md:text-lg leading-relaxed mb-8">
               <p>
                 Con gran vocación por la salud visual, me he dedicado a la oftalmología clínica y quirúrgica, especializándome en el diagnóstico y tratamiento del glaucoma ocular y cataratas.
               </p>

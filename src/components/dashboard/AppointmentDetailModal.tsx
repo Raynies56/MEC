@@ -56,9 +56,9 @@ export function AppointmentDetailModal({ appt, isOpen, onClose, onStatusChange, 
       <div className="space-y-8 py-4">
         
         {/* Section: Patient */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-border">
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-neutral-400 font-bold mb-4 flex items-center gap-2">
+            <h4 className="text-xs uppercase tracking-widest text-text-muted font-bold mb-4 flex items-center gap-2">
               <User className="w-3 h-3" /> Datos del Paciente
             </h4>
             <p className="text-xl font-bold mb-1">{appt.patient_name}</p>
@@ -75,15 +75,15 @@ export function AppointmentDetailModal({ appt, isOpen, onClose, onStatusChange, 
               </a>
             </div>
           </div>
-          <div className="bg-neutral-50 dark:bg-slate-800/50 p-4 rounded-2xl flex flex-col justify-center">
+          <div className="bg-bg-secondary p-4 rounded-2xl flex flex-col justify-center">
              <div className="flex justify-between items-center mb-2">
-               <span className="text-sm text-neutral-500">¿Primera visita?</span>
+               <span className="text-sm text-text-soft">¿Primera visita?</span>
                <Badge variant={appt.is_first_visit ? "primary" : "outline"}>
                  {appt.is_first_visit ? "Sí" : "No"}
                </Badge>
              </div>
              {appt.notes && (
-               <div className="mt-2 text-sm italic text-neutral-600 dark:text-neutral-400">
+               <div className="mt-2 text-sm italic text-text-soft">
                  "{appt.notes}"
                </div>
              )}
@@ -91,23 +91,23 @@ export function AppointmentDetailModal({ appt, isOpen, onClose, onStatusChange, 
         </div>
 
         {/* Section: Appointment */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-6 border-b">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-6 border-b border-border">
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-neutral-400 font-bold mb-2">Motivo</h4>
+            <h4 className="text-xs uppercase tracking-widest text-text-muted font-bold mb-2">Motivo</h4>
             <p className="font-semibold">{appt.reason}</p>
           </div>
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-neutral-400 font-bold mb-2">Fecha y Hora</h4>
+            <h4 className="text-xs uppercase tracking-widest text-text-muted font-bold mb-2">Fecha y Hora</h4>
             <div className="flex items-center gap-2 font-semibold capitalize">
               <Calendar className="w-4 h-4 text-primary" />
               {format(new Date(appt.date + 'T00:00:00'), "EEEE d 'de' MMMM", { locale: es })}
             </div>
-            <div className="flex items-center gap-2 text-sm text-neutral-500 mt-1">
+            <div className="flex items-center gap-2 text-sm text-text-soft mt-1">
               <Clock className="w-3 h-3" /> {appt.time.substring(0, 5)}
             </div>
           </div>
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-neutral-400 font-bold mb-2">Estado</h4>
+            <h4 className="text-xs uppercase tracking-widest text-text-muted font-bold mb-2">Estado</h4>
             <Badge variant={
               appt.status === 'confirmed' ? 'success' : 
               appt.status === 'pending' ? 'warning' : 'outline'
@@ -119,7 +119,7 @@ export function AppointmentDetailModal({ appt, isOpen, onClose, onStatusChange, 
 
         {/* Section: Dr Notes */}
         <div>
-          <h4 className="text-xs uppercase tracking-widest text-neutral-400 font-bold mb-4 flex items-center gap-2">
+          <h4 className="text-xs uppercase tracking-widest text-text-muted font-bold mb-4 flex items-center gap-2">
             <FileText className="w-3 h-3" /> Notas Internas (Privadas)
           </h4>
           <Textarea 
@@ -134,7 +134,7 @@ export function AppointmentDetailModal({ appt, isOpen, onClose, onStatusChange, 
         </div>
 
         {/* Footer Actions */}
-        <div className="flex flex-wrap gap-3 pt-4 border-t justify-end">
+        <div className="flex flex-wrap gap-3 pt-4 border-t border-border justify-end">
           {appt.status === 'pending' && (
             <Button variant="primary" onClick={() => onStatusChange(appt.id!, 'confirmed')}>
               <CheckCircle2 className="w-4 h-4 mr-2" /> Confirmar Cita

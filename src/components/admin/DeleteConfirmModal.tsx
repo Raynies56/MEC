@@ -29,14 +29,14 @@ export function DeleteConfirmModal({ isOpen, onClose, onConfirm, title, message,
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-md bg-white dark:bg-bg-card rounded-[2.5rem] shadow-2xl overflow-hidden border border-border"
+            className="relative w-full max-w-md bg-bg-card rounded-[2.5rem] shadow-2xl overflow-hidden border border-border"
           >
             <div className="p-8">
               <div className="w-16 h-16 rounded-3xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center mx-auto mb-6 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30">
                 <Trash2 className="w-8 h-8" />
               </div>
               
-              <h3 className="text-2xl font-black text-center text-neutral-900 dark:text-white mb-2">
+              <h3 className="text-2xl font-black text-center text-text mb-2">
                 {title}
               </h3>
               
@@ -69,7 +69,7 @@ export function DeleteConfirmModal({ isOpen, onClose, onConfirm, title, message,
             
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-xl hover:bg-bg-secondary transition-colors text-neutral-400"
+              className="absolute top-6 right-6 p-2 rounded-xl hover:bg-bg-secondary transition-colors text-text-muted"
             >
               <X className="w-5 h-5" />
             </button>

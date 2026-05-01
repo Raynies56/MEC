@@ -56,13 +56,13 @@ export function CancelModal({ appt, isOpen, onClose, onSuccess }: Props) {
           <AlertTriangle className="w-6 h-6 text-error shrink-0" />
           <div>
             <p className="font-bold text-error">¿Estás seguro de cancelar esta cita?</p>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+            <p className="text-sm text-text-soft mt-1">
               Esta acción informará al paciente y liberará el horario de inmediato. Esta acción no se puede deshacer.
             </p>
           </div>
         </div>
 
-        <div className="bg-neutral-50 dark:bg-slate-800 p-4 rounded-xl text-sm italic">
+        <div className="bg-bg-secondary p-4 rounded-xl text-sm italic">
           Paciente: <span className="font-bold not-italic">{appt.patient_name}</span> - {appt.date} {appt.time.substring(0, 5)}
         </div>
 
@@ -89,7 +89,7 @@ export function CancelModal({ appt, isOpen, onClose, onSuccess }: Props) {
           </label>
         </div>
 
-        <div className="flex justify-end gap-3 pt-4 border-t">
+        <div className="flex justify-end gap-3 pt-4 border-t border-border">
           <Button variant="ghost" onClick={onClose}>Volver</Button>
           <Button 
             variant="danger" 

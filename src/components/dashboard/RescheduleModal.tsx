@@ -65,17 +65,21 @@ export function RescheduleModal({ appt, isOpen, onClose, onSuccess }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Reagendar Cita">
       <div className="space-y-6 py-4 text-sm">
-        <div className="bg-primary/5 p-4 rounded-xl border border-primary/10">
-          <p className="text-xs text-neutral-500 mb-1">Cita actual con:</p>
-          <p className="font-bold text-neutral-900 dark:text-white">{appt.patient_name}</p>
-          <p className="text-neutral-500 capitalize mt-1">
-            {format(new Date(appt.date + 'T00:00:00'), "EEEE d 'de' MMMM", { locale: es })} a las {appt.time.substring(0, 5)}
-          </p>
+        {/* ── 1. CITA ACTUAL ── */}
+        <div className="bg-bg-secondary p-4 rounded-2xl border border-border transition-colors">
+          <p className="text-[10px] uppercase tracking-wider font-bold text-text-muted mb-2">Cita Actual</p>
+          <div className="flex flex-col gap-1">
+            <p className="font-bold text-lg text-text leading-tight">{appt.patient_name}</p>
+            <p className="text-text-soft font-medium capitalize">
+              {format(new Date(appt.date + 'T00:00:00'), "EEEE d 'de' MMMM", { locale: es })} a las {appt.time.substring(0, 5)}
+            </p>
+          </div>
         </div>
 
-        <div>
-          <label className="block font-bold mb-3">1. Selecciona nueva fecha</label>
-          <div className="flex justify-center">
+        {/* ── 1. NUEVA FECHA ── */}
+        <div className="space-y-3">
+          <label className="text-[10px] uppercase tracking-wider font-bold text-text-soft">1. Nueva Fecha</label>
+          <div className="flex justify-center p-4 bg-bg-card rounded-2xl border border-border shadow-sm transition-colors">
             <DatePicker 
               selected={newDate} 
               onSelect={setNewDate}
@@ -84,26 +88,34 @@ export function RescheduleModal({ appt, isOpen, onClose, onSuccess }: Props) {
           </div>
         </div>
 
+        {/* ── 2. NUEVA HORA ── */}
         {newDate && (
-          <div>
-            <label className="block font-bold mb-3">2. Selecciona nuevo horario</label>
-            {loading ? (
-              <div className="flex justify-center p-8"><div className="w-6 h-6 border-2 border-primary border-t-transparent animate-spin rounded-full" /></div>
-            ) : (
-              <TimePicker slots={slots} selected={newTime} onSelect={setNewTime} />
-            )}
+          <div className="space-y-3">
+            <label className="text-[10px] uppercase tracking-wider font-bold text-text-soft">2. Nueva Hora</label>
+            <div className="p-5 bg-bg rounded-2xl border border-dashed border-border transition-colors">
+              {loading ? (
+                <div className="flex justify-center p-8">
+                  <div className="w-6 h-6 border-2 border-primary border-t-transparent animate-spin rounded-full" />
+                </div>
+              ) : (
+                <TimePicker slots={slots} selected={newTime} onSelect={setNewTime} />
+              )}
+            </div>
           </div>
         )}
 
-        <div className="flex items-center gap-3 p-3 bg-neutral-50 dark:bg-slate-800 rounded-lg border">
-          <input 
-            type="checkbox" 
-            id="notify_patient" 
-            checked={notify} 
-            onChange={(e) => setNotify(e.target.checked)}
-            className="w-4 h-4 text-primary rounded" 
-          />
-          <label htmlFor="notify_patient" className="font-medium cursor-pointer">
+        {/* ── NOTIFICACIÓN ── */}
+        <div className="flex items-center gap-3 p-4 bg-bg-secondary rounded-xl border border-border transition-colors">
+          <div className="relative flex items-center">
+            <input 
+              type="checkbox" 
+              id="notify_patient" 
+              checked={notify} 
+              onChange={(e) => setNotify(e.target.checked)}
+              className="w-5 h-5 text-primary rounded-md border-border focus:ring-primary bg-bg-card transition-all cursor-pointer" 
+            />
+          </div>
+          <label htmlFor="notify_patient" className="text-sm font-medium text-text cursor-pointer select-none">
             Notificar al paciente por correo electrónico
           </label>
         </div>

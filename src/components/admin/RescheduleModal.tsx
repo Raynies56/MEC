@@ -86,10 +86,10 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
     <Modal isOpen={isOpen} onClose={onClose} title="Reagendar Cita" size="lg">
       <div className="space-y-6 py-4">
         {/* Resumen Actual */}
-        <div className="p-4 bg-[var(--bg-secondary)] dark:bg-slate-800 rounded-2xl border border-border">
+        <div className="p-4 bg-bg-secondary rounded-2xl border border-border">
           <p className="text-[10px] uppercase font-black text-primary tracking-widest mb-1">Cita Actual</p>
           <div className="flex justify-between items-center">
-            <span className="font-bold text-text-primary dark:text-white">{appointment.patient_name}</span>
+            <span className="font-bold text-text">{appointment.patient_name}</span>
             <span className="text-sm font-medium text-blue-600 dark:text-blue-300">
                {format(new Date(appointment.date + 'T00:00:00'), "d 'de' MMM", { locale: es })} @ {appointment.time.substring(0, 5)}
             </span>
@@ -99,10 +99,10 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
         <div className="reagendar-body">
           {/* Col 1: Fecha */}
           <div className="space-y-4">
-            <label className="text-sm font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
+            <label className="text-sm font-black uppercase tracking-widest text-text-soft flex items-center gap-2">
               <Calendar className="w-4 h-4" /> 1. Nueva Fecha
             </label>
-            <div className="flex justify-center border rounded-2xl p-2 bg-bg-secondary dark:bg-bg-secondary/50">
+            <div className="flex justify-center border border-border rounded-2xl p-2 bg-bg-card">
               <DatePicker 
                 selected={selectedDate} 
                 onSelect={setSelectedDate}
@@ -112,23 +112,25 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
 
           {/* Col 2: Hora */}
           <div className="space-y-4">
-            <label className="text-sm font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
+            <label className="text-sm font-black uppercase tracking-widest text-text-soft flex items-center gap-2">
               <Clock className="w-4 h-4" /> 2. Nueva Hora
             </label>
             {selectedDate ? (
                isLoadingSlots ? (
                  <div className="grid grid-cols-2 gap-2">
-                    {[...Array(6)].map((_, i) => <div key={i} className="h-10 bg-bg-secondary dark:bg-bg-secondary animate-pulse rounded-xl" />)}
+                    {[...Array(6)].map((_, i) => <div key={i} className="h-10 bg-bg-secondary animate-pulse rounded-xl" />)}
                  </div>
                ) : (
-                 <TimePicker 
-                   slots={slots.filter(s => s.available).map(s => s.time)} 
-                   selected={selectedTime || ""} 
-                   onSelect={setSelectedTime} 
-                 />
+                 <div className="bg-bg-secondary p-2 rounded-2xl border-2 border-dashed border-border">
+                   <TimePicker 
+                     slots={slots.filter(s => s.available).map(s => s.time)} 
+                     selected={selectedTime || ""} 
+                     onSelect={setSelectedTime} 
+                   />
+                 </div>
                )
             ) : (
-              <div className="h-[200px] flex items-center justify-center text-xs text-neutral-400 italic text-center p-6 border-2 border-dashed rounded-2xl">
+              <div className="h-[200px] flex items-center justify-center text-xs text-text-muted italic text-center p-6 border-2 border-dashed border-border bg-bg-secondary rounded-2xl">
                 Selecciona primero una fecha para ver horarios disponibles
               </div>
             )}
@@ -147,12 +149,12 @@ export function RescheduleModal({ appointment, isOpen, onClose, onSuccess }: Pro
             />
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-bg-secondary dark:bg-bg-secondary rounded-2xl">
+          <div className="flex items-center justify-between p-4 bg-bg-secondary rounded-2xl">
             <div className="flex items-center gap-3">
               <Bell className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-sm font-bold">Notificar al paciente</p>
-                <p className="text-[10px] text-neutral-400">Se enviará un correo con los nuevos datos</p>
+                <p className="text-[10px] text-text-muted">Se enviará un correo con los nuevos datos</p>
               </div>
             </div>
             <input 

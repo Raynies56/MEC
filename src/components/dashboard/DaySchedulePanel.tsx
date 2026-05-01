@@ -71,18 +71,18 @@ export function DaySchedulePanel({ date, onSlotClick }: Props) {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-border flex flex-col h-full shadow-sm">
+    <div className="bg-bg-card rounded-3xl border border-border flex flex-col h-full shadow-sm">
       <div className="p-6 border-b border-border">
         <h3 className="font-bold flex items-center gap-2 text-lg">
           <Clock className="w-5 h-5 text-primary" /> Horarios de hoy
         </h3>
-        <p className="text-sm text-neutral-500 capitalize mt-1">{formattedDate}</p>
+        <p className="text-sm text-text-muted capitalize mt-1">{formattedDate}</p>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {loading ? (
           Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="h-14 bg-neutral-50 dark:bg-slate-800 animate-pulse rounded-xl" />
+            <div key={i} className="h-14 bg-bg-secondary animate-pulse rounded-xl" />
           ))
         ) : (
           schedule.map((slot) => {
@@ -96,11 +96,11 @@ export function DaySchedulePanel({ date, onSlotClick }: Props) {
                 className={`
                   flex items-center gap-4 p-3 rounded-xl border transition-all
                   ${isAppt ? 'bg-primary/5 border-primary/20 cursor-pointer hover:bg-primary/10' : 
-                    isBlocked ? 'bg-neutral-100 border-neutral-200 dark:bg-slate-800/50 dark:border-slate-700 opacity-70' : 
-                    'bg-white border-transparent border-dashed border-neutral-200 dark:bg-slate-900 dark:border-slate-800'}
+                    isBlocked ? 'bg-bg-secondary border-border opacity-70' : 
+                    'bg-bg-card border-transparent border-dashed border-border'}
                 `}
               >
-                <span className="text-xs font-bold text-neutral-400 w-10">
+                <span className="text-xs font-bold text-text-muted w-10">
                   {slot.time}
                 </span>
                 
@@ -123,7 +123,7 @@ export function DaySchedulePanel({ date, onSlotClick }: Props) {
                 {!isAppt && !isBlocked && (
                    <button 
                     onClick={(e) => { e.stopPropagation(); setBlockTime(slot.time); setIsBlockModalOpen(true); }}
-                    className="p-1 rounded-md hover:bg-neutral-100 dark:hover:bg-slate-800 text-neutral-300 hover:text-primary transition-colors"
+                    className="p-1 rounded-md hover:bg-bg-secondary text-text-muted hover:text-primary transition-colors"
                    >
                      <Plus className="w-4 h-4" />
                    </button>

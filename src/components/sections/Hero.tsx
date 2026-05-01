@@ -81,7 +81,7 @@ export function Hero() {
   return (
     <section 
       id="hero"
-      className="relative overflow-hidden pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24"
+      className="relative overflow-hidden pt-20 pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24 bg-[var(--bg)]"
       role="region"
       aria-roledescription="carousel"
       aria-label="Sección principal con diapositivas"
@@ -90,9 +90,9 @@ export function Hero() {
     >
       {/* ── Background gradient mesh ── */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary-light)] via-[var(--background)] to-[var(--background)] dark:from-slate-900 dark:via-slate-950 dark:to-slate-950" />
-        <div className="absolute top-[20%] left-[5%] w-[400px] h-[400px] bg-[var(--accent)]/[0.04] rounded-full" />
-        <div className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-[var(--primary)]/[0.03] rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg)] via-[var(--bg-card)] to-[var(--bg-secondary)] opacity-100" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[var(--primary)]/[0.03] blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[var(--accent)]/[0.03] blur-[100px]" />
       </div>
 
       {/* ── Subtle grid pattern ── */}
@@ -121,13 +121,13 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] font-medium text-sm border border-[var(--primary)]/15 mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/10 text-[var(--primary)] font-semibold text-sm border border-[var(--primary)]/20 mb-6 transition-colors">
                   <Star className="h-3.5 w-3.5 fill-current" />
                   {slide.badge}
                 </span>
               </motion.div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[var(--neutral-900)] dark:text-white mb-6 leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[var(--text)] drop-shadow-sm mb-6 leading-[1.08]">
                 {slide.title.split(" ").map((word, i) => (
                   <span key={i} className="inline-block mr-[0.25em]">
                     {word.toLowerCase() === "expertas" ? (
@@ -155,25 +155,25 @@ export function Hero() {
                 ))}
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl text-[var(--neutral-600)] dark:text-gray-300 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              <p className="text-base sm:text-lg md:text-xl text-[var(--text-soft)] mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {slide.description}
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start mb-12">
                 <Link href={slide.primaryCTA.href} className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base font-semibold group">
+                  <Button size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base font-semibold group shadow-lg shadow-[var(--primary)]/20">
                     {slide.primaryCTA.text}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
                 <Link href={slide.secondaryCTA.href} className="w-full sm:w-auto">
-                  <Button variant="outline" size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base">
+                  <Button variant="outline" size="lg" className="w-full min-h-[44px] min-w-[44px] text-sm sm:text-base border-[var(--border)] text-[var(--text-soft)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text)]">
                     {slide.secondaryCTA.text}
                   </Button>
                 </Link>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center gap-6 text-sm md:text-base text-[var(--neutral-500)] dark:text-gray-400">
+              <div className="flex flex-col sm:flex-row items-center gap-6 text-sm md:text-base text-[var(--text-muted)]">
                 {slide.stats.map((stat, i) => (
                   <div key={i} className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-[var(--success)]" />
@@ -185,8 +185,8 @@ export function Hero() {
 
             {/* ── Image side ── */}
             <div className="flex-1 w-full max-w-lg lg:max-w-none relative">
-              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl border-2 border-[var(--background)] dark:border-[var(--neutral-200)]">
-                <div className="absolute inset-0 bg-[var(--neutral-100)] animate-pulse" />
+              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border border-[var(--border)]">
+                <div className="absolute inset-0 bg-[var(--bg-secondary)] animate-pulse" />
                 <Image 
                   src={slide.image} 
                   alt={slide.imageAlt} 
@@ -196,11 +196,12 @@ export function Hero() {
                   priority={current === 0}
                 />
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--neutral-950)]/50 via-transparent to-transparent" />
+                {/* Dynamic overlay gradient based on theme */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)]/80 via-transparent to-transparent dark:from-[var(--bg)]/90" />
                 
-                <div className="absolute bottom-5 left-5 right-5 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-lg">
-                  <p className="font-bold text-[var(--neutral-900)] dark:text-white">{slide.doctorName}</p>
-                  <p className="text-sm text-[var(--neutral-600)] dark:text-gray-400">{slide.doctorRole}</p>
+                <div className="absolute bottom-6 left-6 right-6 p-5 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] shadow-xl backdrop-blur-sm">
+                  <p className="font-bold text-[var(--text)] text-lg mb-0.5">{slide.doctorName}</p>
+                  <p className="text-sm text-[var(--text-soft)] font-medium">{slide.doctorRole}</p>
                 </div>
               </div>
               
@@ -209,14 +210,14 @@ export function Hero() {
                 <motion.div 
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="absolute top-10 -right-10 lg:-right-16 p-4 bg-white dark:bg-slate-900 rounded-xl border border-white/20 dark:border-slate-800/50 shadow-xl hidden sm:flex items-center gap-4 z-20"
+                  className="absolute top-10 -right-10 lg:-right-16 p-4 bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] shadow-2xl hidden sm:flex items-center gap-4 z-20"
                 >
-                  <div className="bg-[var(--success)]/20 p-3 rounded-full">
+                  <div className="bg-[var(--success)]/10 p-3 rounded-full">
                     <CheckCircle2 className="h-6 w-6 text-[var(--success)]" />
                   </div>
                   <div>
-                    <p className="font-bold text-[var(--neutral-900)] dark:text-white text-sm">Seguros Aceptados</p>
-                    <p className="text-xs text-[var(--neutral-500)] dark:text-gray-400">Humano, Universal, Mapfre y más</p>
+                    <p className="font-bold text-[var(--text)] text-sm">Seguros Aceptados</p>
+                    <p className="text-xs text-[var(--text-muted)]">Humano, Universal, Mapfre y más</p>
                   </div>
                 </motion.div>
               )}
@@ -228,10 +229,10 @@ export function Hero() {
         <div className="flex items-center justify-between mt-12 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-0 lg:right-0 lg:px-4 pointer-events-none">
           <button 
             onClick={prevSlide}
-            className="p-3 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-800 transition-colors pointer-events-auto group focus:ring-2 focus:ring-[var(--primary)]"
+            className="p-3 rounded-full bg-[var(--bg-card)]/80 border border-[var(--border)] shadow-md hover:bg-[var(--bg-card)] transition-colors pointer-events-auto group focus:ring-2 focus:ring-[var(--primary)]"
             aria-label="Diapositiva anterior"
           >
-            <ChevronLeft className="h-6 w-6 text-[var(--neutral-600)] dark:text-neutral-300 group-hover:text-[var(--primary)] transition-colors" />
+            <ChevronLeft className="h-6 w-6 text-[var(--text-soft)] group-hover:text-[var(--primary)] transition-colors" />
           </button>
           
           <div className="flex gap-3 pointer-events-auto">
@@ -239,7 +240,7 @@ export function Hero() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${current === i ? "bg-[var(--primary)] w-8" : "bg-[var(--neutral-300)] dark:bg-slate-700 w-2"}`}
+                className={`h-2 rounded-full transition-all duration-300 ${current === i ? "bg-[var(--primary)] w-8" : "bg-[var(--border)] w-2"}`}
                 aria-label={`Ir a diapositiva ${i + 1}`}
                 aria-current={current === i ? "true" : "false"}
               />
@@ -248,10 +249,10 @@ export function Hero() {
 
           <button 
             onClick={nextSlide}
-            className="p-3 rounded-full bg-white/80 dark:bg-slate-800/80 shadow-md hover:bg-white dark:hover:bg-slate-800 transition-colors pointer-events-auto group focus:ring-2 focus:ring-[var(--primary)]"
+            className="p-3 rounded-full bg-[var(--bg-card)]/80 border border-[var(--border)] shadow-md hover:bg-[var(--bg-card)] transition-colors pointer-events-auto group focus:ring-2 focus:ring-[var(--primary)]"
             aria-label="Siguiente diapositiva"
           >
-            <ChevronRight className="h-6 w-6 text-[var(--neutral-600)] dark:text-neutral-300 group-hover:text-[var(--primary)] transition-colors" />
+            <ChevronRight className="h-6 w-6 text-[var(--text-soft)] group-hover:text-[var(--primary)] transition-colors" />
           </button>
         </div>
       </div>
